@@ -11,7 +11,7 @@ class Login extends React.Component{
                 <header className="Login-header">
                     <img src={logo} className="Login-logo" alt="logo" />
                     <p>
-                    로그인 페이지
+                    Login
                     </p>
                     <LoginForm />
                 </header>
