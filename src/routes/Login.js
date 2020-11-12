@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
+import LoginForm from '../components/LoginForm';
 
 class Login extends React.Component{
 
@@ -10,9 +11,9 @@ class Login extends React.Component{
                 <header className="Login-header">
                     <img src={logo} className="Login-logo" alt="logo" />
                     <p>
-                    세종대학교 소프트웨어학과 사물함 배정 페이지
+                    로그인 페이지
                     </p>
-                    
+                    <LoginForm />
                 </header>
             </div>    
         );
