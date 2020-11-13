@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
+import { firebase_module } from '../firebase.js'
 
 class Login extends React.Component{
+    constructor() {
+        super();
+        this.firestore = firebase_module();
+    }
+
+    async componentDidMount() {
+        const userData = await this.firestore.getUserData();
+        const jh = await this.firestore.getUserData('14011224');
+        console.log(userData)
+        console.log(jh)
+    }
 
     render(){
         return(
