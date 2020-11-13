@@ -1,57 +1,23 @@
-.Modal {
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    right: 20%;
-    bottom: 20%;
-    background-color: papayawhip;
-  }
-
- .Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-
-  .login_tit {
-    border-bottom: solid 1px #ababab;
-    padding-bottom : 20px
-  }
-  
-  .modal_tools {
-    margin-top : -100px
-  }
-  
-  .login_input_div p {
-    font-weight: bold;
-    margin-bottom : 8px;
-  }
-  
-  .login_input_div input {
-    width: 92%;
-    padding: 4px;
-    margin-top: -10px;
-  }
-  
-  .login_div {
-    text-align: left;
-    padding-left: 20px;
-  }
-  
-  .submit_div {
-    display: grid;
-    grid-template-columns: 45% auto;
-    margin-top: 12%;
-  }
-  
-  .submit_div div {
-    text-align: center;
-  }
-  
-  .submit_div div input {
-    cursor: pointer;
-  }
+.SignupId {
+  margin-top: 30px;
+  border-radius: 2px;
+  width: 30%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+}
+input::placeholder {
+  color: #999999;
+}
+.SignupPw {
+  margin-top: 15px;
+  border-radius: 2px;
+  width: 30%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+}

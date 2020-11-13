@@ -61,6 +61,20 @@
     border-radius: 3px;
     border-style: none;
   }
+
+  .SignupBtn {
+    height: 40px;
+    font-size: 14px;
+    padding: 13px 30px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    line-height: 1px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    border-radius: 3px;
+    border-style: none;
+  }
     
   @keyframes Login-logo-spin {
     from {

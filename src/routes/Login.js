@@ -2,18 +2,27 @@ import React, { Component } from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
 import { firebase_module } from '../firebase.js'
+import Modal from '../component/Modal';
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
 
-    constructor () {
-        super();
+    constructor (props) {
+        super(props);
         this.firestore = firebase_module();
         this.state = {
-          //showModal: false,
+          showModal: false,
           id: "",
           password:""
         };
+      }
+
+      handleOpenModal = () =>{
+        this.setState({ showModal: true });
+      }
+      
+      handleCloseModal = () =>{        
+        this.setState({ showModal: false });
       }
 
     async componentDidMount() {
@@ -33,9 +42,9 @@ class Login extends React.Component {
         this.firestore.setUserData(userData, () => {
             alert('유저 데이터 추가 완료!');
             this.setState({id:'', password: ''});
-        });
-        
+        });        
     }
+
     
 
     render(){
@@ -47,8 +56,7 @@ class Login extends React.Component {
                     <p>
                     세종대학교 소프트웨어학과 사물함 배정 페이지
                     </p>
-
-                    <input
+                  <input
                     name="id"
                     className="loginId"
                     type="text"
@@ -69,11 +77,19 @@ class Login extends React.Component {
                     onClick={this.loginClickHandler}>
                       Login
                   </button>
-                    
+
+                  <button 
+                    className="SignupBtn" 
+                    onClick={this.handleOpenModal}>
+                      Signup
+                  </button>                    
                 </header>
+                <Modal isOpen={this.state.showModal} close={this.handleCloseModal} />
             </div>    
         );
     }
+
+    
 }
 
 export default Login;

@@ -9,7 +9,7 @@ function App(){
 
   return(
     <HashRouter>
-      <Route path="/" exact="true" component={Login}/>
+      <Route path="/" exact={true} component={Login}/>
     </HashRouter>
   );
 }
