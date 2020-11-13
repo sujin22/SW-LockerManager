@@ -23,6 +23,44 @@
     font-size: calc(10px + 2vmin);
     color: white;
   }
+
+  .loginId {
+    margin-top: 30px;
+    border-radius: 2px;
+    width: 30%;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    padding: 9px 12px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  input::placeholder {
+    color: #999999;
+  }
+  .loginPw {
+    margin-top: 15px;
+    border-radius: 2px;
+    width: 30%;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    padding: 9px 12px;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .loginBtn {
+    height: 40px;
+    font-size: 14px;
+    padding: 13px 30px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    line-height: 1px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    border-radius: 3px;
+    border-style: none;
+  }
     
   @keyframes Login-logo-spin {
     from {

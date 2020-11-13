@@ -52,9 +52,22 @@ const firebase_module = () => {
     }
   }
 
-  // const setUser
+  const setUserData = (userData, onCompleted = () => console.log()) => {
+    if(userData.id == '' || userData.password == '') {
+      alert("입력 양식을 확인해주세요");
+      return;
+    }
+    const data = {
+      password: userData.password
+    }
+    db.collection('user').doc(userData.id).set(data)
+      .then(onCompleted)
+      .catch((err) => {
+        console.log(`Error setting user/${userData.id} document`, err);
+      })
+  }
 
-  return { getUserData }
+  return { getUserData, setUserData }
 }
 
 export { firebase_module };
