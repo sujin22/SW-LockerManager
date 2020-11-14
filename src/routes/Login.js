@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
 import { firebase_module } from '../firebase.js'
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
-
     constructor () {
         super();
         this.firestore = firebase_module();
@@ -18,9 +17,9 @@ class Login extends React.Component {
 
     async componentDidMount() {
         const userData = await this.firestore.getUserData();
-        const jh = await this.firestore.getUserData('14011224');
+        const lockerData = await this.firestore.getLockerData();
         console.log(userData)
-        console.log(jh)
+        console.log(lockerData)
     }
 
     loginHandler = (e) => {
@@ -34,9 +33,7 @@ class Login extends React.Component {
             alert('유저 데이터 추가 완료!');
             this.setState({id:'', password: ''});
         });
-        
     }
-    
 
     render(){
         const { id, password } = this.state;
