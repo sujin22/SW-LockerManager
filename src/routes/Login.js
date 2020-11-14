@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
-<<<<<<< HEAD
 import { firebase_module } from '../firebase.js'
 // import Modal from 'react-modal';
-=======
-import LoginForm from '../components/LoginForm';
->>>>>>> 98c88399bb93cd8d0b31e4e8e5467753fb7383d8
 
 class Login extends React.Component {
 
@@ -51,7 +47,6 @@ class Login extends React.Component {
                     <p>
                     Login
                     </p>
-<<<<<<< HEAD
 
                     <input
                     name="id"
@@ -75,9 +70,6 @@ class Login extends React.Component {
                       Login
                   </button>
                     
-=======
-                    <LoginForm />
->>>>>>> 98c88399bb93cd8d0b31e4e8e5467753fb7383d8
                 </header>
             </div>    
         );
