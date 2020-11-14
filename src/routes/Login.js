@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
+<<<<<<< HEAD
 import { firebase_module } from '../firebase.js'
 // import Modal from 'react-modal';
+=======
+import LoginForm from '../components/LoginForm';
+>>>>>>> 98c88399bb93cd8d0b31e4e8e5467753fb7383d8
 
 class Login extends React.Component {
 
@@ -45,8 +49,9 @@ class Login extends React.Component {
                 <header className="Login-header">
                     <img src={logo} className="Login-logo" alt="logo" />
                     <p>
-                    세종대학교 소프트웨어학과 사물함 배정 페이지
+                    Login
                     </p>
+<<<<<<< HEAD
 
                     <input
                     name="id"
@@ -70,6 +75,9 @@ class Login extends React.Component {
                       Login
                   </button>
                     
+=======
+                    <LoginForm />
+>>>>>>> 98c88399bb93cd8d0b31e4e8e5467753fb7383d8
                 </header>
             </div>    
         );
