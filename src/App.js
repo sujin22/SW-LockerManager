@@ -4,12 +4,15 @@ import logo from './sw_logo.png';
 import './App.css';
 import {HashRouter, Route} from 'react-router-dom';
 import Login from './routes/Login';
+import MainExample from './routes/MainExample';
 import { firebase_module } from './firebase.js'
+
 
 function App(){
   return(
     <HashRouter>
       <Route path="/" exact="true" component={Login}/>
+      <Route path="/main" component={MainExample} />
     </HashRouter>
   );
 }
