@@ -112,10 +112,10 @@ const RegisterDB = () => {
         })
       return registerList;
     } else {
-      let registerData;
+      let registerData = undefined;
       await db.collection('register').where('id', '==', id).get()
         .then((snapshot) => {
-          if (snapshot.docs.size > 0) {
+          if (snapshot.docs.length > 0) {
             registerData = {
               key: snapshot.docs[0].id,
               ...snapshot.docs[0].data()
@@ -137,8 +137,10 @@ const RegisterDB = () => {
       alert("입력 양식을 확인해주세요");
       return;
     }
-    const data = await getRegisterData(inputData.id);
-    if (data)  { alert("이미 신청된 학번입니다!"); return; }
+    const r_data = await getRegisterData(inputData.id);
+    if (r_data)  { alert("이미 신청된 학번입니다!"); return; }
+    const u_data = await UserDB().getUserData(inputData.id);
+    if (u_data) { alert("이미 가입된 학번입니다!"); return; }
     inputData.datetime = firebase.firestore.Timestamp.fromDate(new Date());
     db.collection('register').add(inputData)
       .then(onCompleted)
