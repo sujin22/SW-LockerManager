@@ -17,8 +17,8 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // firestore 커스텀 모듈
-const firebase_module = () => {
-  
+const useUserDB = () => {
+
   // 유저 데이터 불러오기
   // id 전달 시 해당 유저 한명 데이터 불러오고, 없을 시 전체 유저 불러옴
   const getUserData = async (id='') => {
@@ -39,13 +39,15 @@ const firebase_module = () => {
         });
       return userList;
     } else {
-      let userData = {};
+      let userData = undefined;
       await db.collection('user').doc(id).get()
         .then((snapshot) => {
-          userData = {
-            id: snapshot.id,
-            ...snapshot.data()
-          };
+          if (!snapshot.exists()) {
+            userData = {
+              id: snapshot.id,
+              ...snapshot.data()
+            };
+          }
         })
         .catch((err) => {
           console.log(`Error getting user/${id} document`, err);
@@ -54,23 +56,114 @@ const firebase_module = () => {
     }
   }
 
-  // 유저 데이터 설정하기
+  // 유저 데이터 설정하기 (id가 new면 추가)
   // userData는 Object{id, name, password, phone}
   // onCompleted는 설정 완료 콜백 함수
-  const setUserData = (userData, onCompleted = () => console.log(`Data[${userData.id}] updated`)) => {
-    if(userData.id === '' || userData.password === '') {
+  const setUserData = async (userData, onCompleted = () => console.log(`Data[${userData.id}] updated`)) => {
+    if (userData.id === '' || userData.password === '' || userData.phone === '') {
       alert("입력 양식을 확인해주세요");
       return;
     }
-    const data = {
-      password: userData.password
-    }
-    db.collection('user').doc(userData.id).set(data)
+    if (await getUserData(userData.id))  { console.log("Already exist. It will modified.") }
+    const userID = userData.id;
+    delete userData.id;
+    db.collection('user').doc(userID).set(userData)
       .then(onCompleted)
       .catch((err) => {
-        console.log(`Error setting user/${userData.id} document`, err);
+        console.log(`Error setting user/${userID} document`, err);
       })
   }
+
+  // 유저 데이터 삭제하기
+  // userID는 학번(string)
+  // onCompleted는 설정 완료 콜백 함수
+  const removeUserData = async (userID, onCompleted = () => console.log(`Data[${userID}] removed`)) => {
+    if (!(await getUserData(userID)))  { console.log("Already deleted."); return; }
+    db.collection('user').doc(userID).delete()
+      .then(onCompleted)
+      .catch((err) => {
+        console.log(`Error removing user/${userID} document`, err);
+      })
+  }
+  
+
+  return { getUserData, setUserData, removeUserData }
+}
+
+
+const useRegisterDB = () => {
+
+  // 회원가입 데이터 불러오기
+  // id 전달 시 해당 회원가입 데이터 불러오고, 없을 시 전체 유저 불러옴
+  // onCompleted는 설정 완료 콜백 함수
+  const getRegisterData = async (id='') => {
+    if (id === '') {
+      let registerList = [];
+      await db.collection('register').orderBy('datetime').get()
+        .then((snapshot) => {
+          if (!snapshot.empty) {
+            snapshot.forEach((doc) => {
+              registerList.push(doc.data());
+            })
+          }
+        })
+        .catch((err) => {
+          console.log(`Error getting register documents`, err);
+        })
+      return registerList;
+    } else {
+      let registerData;
+      await db.collection('register').where('id', '==', id).get()
+        .then((snapshot) => {
+          if (snapshot.docs.size > 0) {
+            registerData = {
+              key: snapshot.docs[0].id,
+              ...snapshot.docs[0].data()
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(`Error getting register/${id} document`, err);
+        })
+      return registerData;
+    }
+  }
+
+  // 회원가입 데이터 추가하기
+  // inputData는 Object{id, name, password, phone}
+  // onCompleted는 설정 완료 콜백 함수
+  const addRegisterData = (inputData, onCompleted = () => console.log(`Data[${inputData.id}] added`)) => {
+    if (inputData.id === '' || inputData.password === '' || inputData.phone === '') {
+      alert("입력 양식을 확인해주세요");
+      return;
+    }
+    const data = await getRegisterData(inputData.id);
+    if (data)  { alert("이미 신청된 학번입니다!"); return; }
+    db.collection('register').add(inputData)
+      .then(onCompleted)
+      .catch((err) => {
+        console.log(`Error adding register/${inputData.id} document`, err);
+      })
+  }
+
+  // 회원가입 데이터 삭제하기
+  // userID는 string
+  // onCompleted는 설정 완료 콜백 함수
+  const removeRegisterData = async (id, onCompleted = () => console.log(`Data[${id}] removed`)) => {
+    const data = await getRegisterData(id);
+    if (!data)  { alert("이미 삭제된 학번입니다!"); return; }
+    db.collection('user').doc(data.key).delete()
+      .then(onCompleted)
+      .catch((err) => {
+        console.log(`Error removing register/${data.key} document`, err);
+      })
+  }
+
+  return { getRegisterData, addRegisterData, removeRegisterData }
+}
+
+
+const useLockerDB = () => {
 
   // 사물함 데이터 불러오기
   // area 전달 시 해당 구역의 사물함 데이터 불러오고, 없을 시 전체 사물함 불러옴
@@ -182,7 +275,7 @@ const firebase_module = () => {
     console.log('Listeners removed!')
   }
 
-  return { getUserData, setUserData, getLockerData, addLockerData, setLockerData, addLockerDataListener, removeLockerDataListener }
+  return { getLockerData, addLockerData, setLockerData, addLockerDataListener, removeLockerDataListener }
 }
 
-export { firebase_module };
+export { useUserDB, useRegisterDB, useLockerDB };

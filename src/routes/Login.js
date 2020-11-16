@@ -1,13 +1,13 @@
 import React from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
-import { firebase_module } from '../firebase.js'
+import { useUserDB } from '../firebase.js'
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
     constructor () {
         super();
-        this.firestore = firebase_module();
+        this.firestore = useUserDB();
         this.state = {
           //showModal: false,
           id: "",
@@ -17,9 +17,7 @@ class Login extends React.Component {
 
     async componentDidMount() {
         const userData = await this.firestore.getUserData();
-        const lockerData = await this.firestore.getLockerData();
-        console.log(userData)
-        console.log(lockerData)
+        console.log(userData);
     }
 
     loginHandler = (e) => {
