@@ -3,25 +3,27 @@ import { firebase_module } from '../firebase.js'
 
 const MainExample = () => {
   const [ lockerList, setLockerList ] = useState([]);
+  const [ newLocker, setNewLocker ] = useState();
+  const [ loading, setLoading ] = useState(true);
+  
+  useEffect(() => {
+    firebase_module().getLockerData().then((data) => {
+      setLockerList(data);
+      setLoading(false);
+    })
+  }, [])
+
   useEffect(() => {
     const db = firebase_module();
     const updateLockerData = (snapshot) => {
+      if (loading) { return; }
       snapshot.docChanges().forEach((change) => {
         const newLockerData = {
           area: change.doc.ref.path.split('/')[1],
           ...change.doc.data()
         };
         console.log(newLockerData);
-        let newLockerList = [];
-        const isExist = lockerList.findIndex(locker => locker.number === newLockerData.number) !== -1;
-        if (isExist) {
-          newLockerList = lockerList.map(locker => (locker.number === newLockerData.number) ? newLockerData : locker);
-        } else {
-          newLockerList = lockerList;
-          newLockerList.push(newLockerData);
-          newLockerList.sort((a, b) => a.number - b.number);
-        }
-        setLockerList(newLockerList);
+        setNewLocker(newLockerData);
       })
     }
     db.addLockerDataListener(updateLockerData);
@@ -29,6 +31,18 @@ const MainExample = () => {
       db.removeLockerDataListener();
     }
   }, [])
+
+  useEffect(() => {
+    if (newLocker === undefined || Object.keys(newLocker).length === 0) { return; }
+    const isExist = lockerList.findIndex(locker => locker.number === newLocker.number) !== -1;
+    if (isExist) {
+      console.log(newLocker);
+      const newLockerList = lockerList.map(locker => (locker.number === newLocker.number) ? newLocker : locker);
+      setLockerList(newLockerList);
+    }
+  }, [newLocker])
+
+  
 
   const onSelectLocker = (locker) => {
     if (!locker.able) {

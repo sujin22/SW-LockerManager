@@ -11,7 +11,7 @@ import { firebase_module } from './firebase.js'
 function App(){
   return(
     <HashRouter>
-      <Route path="/" exact="true" component={Login}/>
+      <Route path="/" exact={true} component={Login}/>
       <Route path="/main" component={MainExample} />
     </HashRouter>
   );
