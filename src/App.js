@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-// import logo from './logo.svg';
-import logo from './sw_logo.png';
+import React from 'react';
 import './App.css';
 import {HashRouter, Route} from 'react-router-dom';
 import Login from './routes/Login';
