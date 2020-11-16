@@ -17,7 +17,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // firestore 커스텀 모듈
-const useUserDB = () => {
+const UserDB = () => {
 
   // 유저 데이터 불러오기
   // id 전달 시 해당 유저 한명 데이터 불러오고, 없을 시 전체 유저 불러옴
@@ -91,7 +91,7 @@ const useUserDB = () => {
 }
 
 
-const useRegisterDB = () => {
+const RegisterDB = () => {
 
   // 회원가입 데이터 불러오기
   // id 전달 시 해당 회원가입 데이터 불러오고, 없을 시 전체 유저 불러옴
@@ -132,13 +132,14 @@ const useRegisterDB = () => {
   // 회원가입 데이터 추가하기
   // inputData는 Object{id, name, password, phone}
   // onCompleted는 설정 완료 콜백 함수
-  const addRegisterData = (inputData, onCompleted = () => console.log(`Data[${inputData.id}] added`)) => {
+  const addRegisterData = async (inputData, onCompleted = () => console.log(`Data[${inputData.id}] added`)) => {
     if (inputData.id === '' || inputData.password === '' || inputData.phone === '') {
       alert("입력 양식을 확인해주세요");
       return;
     }
     const data = await getRegisterData(inputData.id);
     if (data)  { alert("이미 신청된 학번입니다!"); return; }
+    inputData.datetime = firebase.firestore.Timestamp.fromDate(new Date());
     db.collection('register').add(inputData)
       .then(onCompleted)
       .catch((err) => {
@@ -163,7 +164,7 @@ const useRegisterDB = () => {
 }
 
 
-const useLockerDB = () => {
+const LockerDB = () => {
 
   // 사물함 데이터 불러오기
   // area 전달 시 해당 구역의 사물함 데이터 불러오고, 없을 시 전체 사물함 불러옴
@@ -278,4 +279,4 @@ const useLockerDB = () => {
   return { getLockerData, addLockerData, setLockerData, addLockerDataListener, removeLockerDataListener }
 }
 
-export { useUserDB, useRegisterDB, useLockerDB };
+export { UserDB, RegisterDB, LockerDB };

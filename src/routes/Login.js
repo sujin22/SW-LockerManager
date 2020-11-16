@@ -1,13 +1,13 @@
 import React from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
-import { useUserDB } from '../firebase.js'
+import { UserDB } from '../firebase.js'
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
     constructor () {
         super();
-        this.firestore = useUserDB();
+        this.firestore = UserDB();
         this.state = {
           //showModal: false,
           id: "",

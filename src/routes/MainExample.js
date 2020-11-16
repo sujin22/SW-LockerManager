@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { firebase_module } from '../firebase.js'
+import { LockerDB } from '../firebase.js'
 
 const MainExample = () => {
   const [ lockerList, setLockerList ] = useState([]);
@@ -7,14 +7,14 @@ const MainExample = () => {
   const [ loading, setLoading ] = useState(true);
   
   useEffect(() => {
-    firebase_module().getLockerData().then((data) => {
+    LockerDB().getLockerData().then((data) => {
       setLockerList(data);
       setLoading(false);
     })
   }, [])
 
   useEffect(() => {
-    const db = firebase_module();
+    const db = LockerDB();
     const updateLockerData = (snapshot) => {
       if (loading) { return; }
       snapshot.docChanges().forEach((change) => {
@@ -53,7 +53,7 @@ const MainExample = () => {
       ...locker,
       able: false
     }
-    firebase_module().setLockerData(newLocker);
+    LockerDB().setLockerData(newLocker);
   }
 
   return (

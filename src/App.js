@@ -5,7 +5,7 @@ import './App.css';
 import {HashRouter, Route} from 'react-router-dom';
 import Login from './routes/Login';
 import MainExample from './routes/MainExample';
-import { firebase_module } from './firebase.js'
+import SignUpExample from './routes/SignUpExample';
 
 
 function App(){
@@ -13,6 +13,7 @@ function App(){
     <HashRouter>
       <Route path="/" exact={true} component={Login}/>
       <Route path="/main" component={MainExample} />
+      <Route path="/sign" component={SignUpExample} />
     </HashRouter>
   );
 }
