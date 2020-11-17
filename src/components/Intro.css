@@ -6,7 +6,7 @@
 
     text-align: center;
   }
-  .intro_wraper{
+  .intro_wrapper{
     display: table-cell;
     vertical-align: middle;
   }
@@ -25,5 +25,10 @@
     font-size: 18px;
 
     border-radius: 5px;
-    border: 0;
+    border: 0pxre;
+  }
+
+  .intro_btn:hover{
+    background-color: #D9E5FF;
+    color: black;
   }
