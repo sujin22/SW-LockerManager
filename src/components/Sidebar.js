@@ -13,7 +13,7 @@ class Sidebar extends Component{
         <div className="sidebar">
                     <span
                     role="presentation"
-                    onClick={() => this.setState({isSidebarExpanded:true})}
+                    onMouseOver={() => this.setState({isSidebarExpanded:true})}
                     >
                          <img src={icon_expanded} className="icon_expanded" alt="expanded" />
                     </span>
@@ -21,10 +21,10 @@ class Sidebar extends Component{
     );
     
     sidebarExpanded = () => (
-        <div className="sidebar expanded">
+        <div className="sidebar expanded"
+        onMouseLeave={() => this.setState({isSidebarExpanded: false})}>
             <span
             role="presentation"
-            onClick={() => this.setState({isSidebarExpanded: false})}
             >
                 <img src={icon_collapsed} className="icon_collapsed" alt="collapsed" />
             </span>
