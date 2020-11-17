@@ -1,0 +1,28 @@
+.minimap{
+    text-align: center;
+    border-radius: 5px;
+}
+
+td{
+    border-radius: 5px;
+}
+.invisible{
+    border: 0;
+    height: 10px;
+}
+
+.locker{
+    width: 200px;
+    border-color: #1D4E89;
+    color: #1D4E89;
+    background-color: white;
+    font-weight:bold;
+}
+.locker:hover{
+    background-color: #D9E5FF;
+}
+
+.enviornment{
+    background-color: #002266;
+    color: white;
+}
