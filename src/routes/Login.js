@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
 import { firebase_module } from '../firebase.js'
-import Modal from '../component/Modal';
+import Signup from '../component/Signup.js';
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
@@ -37,6 +37,12 @@ class Login extends React.Component {
         this.setState({ [name]: value });
     };  
 
+    loginNumHandler = (e) => {
+      const { name, value } = e.target;
+      const newValue = value.replace(/[^0-9]/g, '');
+      this.setState({ [name]: newValue });
+  };  
+
     loginClickHandler = () =>{
         const userData = this.state;
         this.firestore.setUserData(userData, () => {
@@ -59,10 +65,10 @@ class Login extends React.Component {
                   <input
                     name="id"
                     className="loginId"
-                    type="text"
+                    input type="text"
                     placeholder="학번"
                     value={id}
-                    onChange={this.loginHandler}
+                    onChange={this.loginNumHandler}
                   />
                   <input
                     name="password"
@@ -84,7 +90,7 @@ class Login extends React.Component {
                       Signup
                   </button>                    
                 </header>
-                <Modal isOpen={this.state.showModal} close={this.handleCloseModal} />
+                <Signup isOpen={this.state.showModal} close={this.handleCloseModal} />
             </div>    
         );
     }

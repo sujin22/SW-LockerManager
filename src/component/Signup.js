@@ -1,5 +1,7 @@
 import React from 'react';
 import './Signup.css';
+import './Modal/Modal.scss';
+
 
 
 class Signup extends React.Component{
@@ -9,6 +11,7 @@ class Signup extends React.Component{
         this.state = {
           id: "",
           password:"",
+          confirmPassword:"",
           name: "",
           phone:""
         };
@@ -17,53 +20,117 @@ class Signup extends React.Component{
       }     
     
       //값이 변경될 떄마다 값 리턴
-      loginHandler = (e) => {
+      signupHandler = (e) => {
+        
         const { name, value } = e.target;
         this.setState({ [name]: value });
     };  
-          
-      render(){
-        const { id, password ,name,phone } = this.state;
-        return(
-          <div>               
-           <div>           
-           <input
-                    name="id"
-                    className="SignupId"
-                    type="text"
-                    placeholder="학번"
-                    value={id}
-                    onChange={this.loginHandler}
-                  />
-                    <input
-                    name="password"
-                    className="SignupPw"
-                    type="password"
-                    placeholder="비밀번호"
-                    value={password}
-                    onChange={this.loginHandler}
-                  />          
 
+    signupNumHandler = (e) => {
+      const { name, value } = e.target;
+      const newValue = value.replace(/[^0-9]/g, '');
+      this.setState({ [name]: newValue });
+  };  
+  doesPasswordMatch() {
+    const { password, confirmPassword } = this.state;
+    return password === confirmPassword;
+  }   
+
+  renderFeedbackMessage() {
+    const { confirmPassword } = this.state;
+
+    if (confirmPassword) {
+      if (!this.doesPasswordMatch()) {
+        return (
+          <div className="errorMsg">패스워드가 일치하지 않습니다</div>
+        );
+      }
+    }
+  }
+
+  
+
+  renderSubmitBtn() {
+    const { id, password, name,phone } = this.state;
+    if(this.doesPasswordMatch() &&
+      id.length>1 &&
+      password.length>1 &&
+      name.length>1 &&
+      phone.length>1)
+      return (
+        <button onClick={this.props.close} >Confirm</button>         
+      )
+
+    return (
+      <button onClick={this.props.close} disabled>Confirm</button>       
+    )
+  }
+      render(){
+        const { id, password ,confirmPassword,name,phone } = this.state;
+        return(
+
+          <React.Fragment>
+    {
+      this.props.isOpen ?
+      <React.Fragment>
+        <div className="Modal-overlay" onClick={this.props.close} />
+        <div className="Modal">
+          <p className="title">회원 가입</p>
+          <div className="content">                       
+                     
+          <input
+            name="id"
+            className="SignupText"
+            type="text"
+            placeholder="학번"
+            value={id}
+             onChange={this.signupNumHandler}
+          />
+          <input
+             name="password"
+             className="SignupPw"
+             type="password"
+             placeholder="비밀번호"
+             value={password}
+             onChange={this.signupHandler}       
+             />    
+                            
+            <input
+              name="confirmPassword"
+              className="SignupPw"
+              type="password"
+              placeholder="비밀번호확인"
+             value={confirmPassword}
+             onChange={this.signupHandler}
+            />                     
+            {this.renderFeedbackMessage()}
                      <input
                     name="name"
-                    className="SignupId"
+                    className="SignupText"
                     type="text"
                     placeholder="이름"
                     value={name}
-                    onChange={this.loginHandler}
+                    onChange={this.signupHandler}
                   /> 
                    <input
                     name="phone"
-                    className="SignupId"
+                    className="SignupText"
                     type="tel" 
                     pattern="(010)-[0-9]{4}-[0-9]{4}"
                     placeholder="전화번호"
                     value={phone}
-                    onChange={this.loginHandler}
+                    onChange={this.signupNumHandler}
                   />   
-                        
-            </div>     
-          </div>
+          </div>          
+                
+          <div className="button-wrap">    
+           {this.renderSubmitBtn()}  
+          </div>           
+        </div>
+      </React.Fragment>: null
+    }
+    </React.Fragment>
+          
                
           
         );
