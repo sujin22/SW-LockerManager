@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { LockerDB } from '../server/firebase.js'
+import auth from './../server/auth';
 
-const MainExample = () => {
+const MainExample = (props) => {
   const [ lockerList, setLockerList ] = useState([]);
   const [ newLocker, setNewLocker ] = useState();
-  const [ loading, setLoading ] = useState(true);
-  
+
+  if (!auth().isLogin()) {
+    alert("로그인이 필요합니다!");
+    props.history.goBack();
+  }
+
   useEffect(() => {
     LockerDB().getLockerData().then((data) => {
       setLockerList(data);
-      setLoading(false);
     })
   }, [])
 
   useEffect(() => {
     const db = LockerDB();
+    let count = 0;
     const updateLockerData = (snapshot) => {
-      if (loading) { return; }
+      if (count <= 4) { count += 1; return; }
       snapshot.docChanges().forEach((change) => {
         const newLockerData = {
           area: change.doc.ref.path.split('/')[1],
           ...change.doc.data()
         };
-        console.log(newLockerData);
         setNewLocker(newLockerData);
       })
     }
@@ -36,7 +40,6 @@ const MainExample = () => {
     if (newLocker === undefined || Object.keys(newLocker).length === 0) { return; }
     const isExist = lockerList.findIndex(locker => locker.number === newLocker.number) !== -1;
     if (isExist) {
-      console.log(newLocker);
       const newLockerList = lockerList.map(locker => (locker.number === newLocker.number) ? newLocker : locker);
       setLockerList(newLockerList);
     }

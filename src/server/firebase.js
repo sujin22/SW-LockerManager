@@ -155,7 +155,7 @@ const RegisterDB = () => {
   const removeRegisterData = async (id, onCompleted = () => console.log(`Data[${id}] removed`)) => {
     const data = await getRegisterData(id);
     if (!data)  { alert("이미 삭제된 학번입니다!"); return; }
-    db.collection('user').doc(data.key).delete()
+    db.collection('register').doc(data.key).delete()
       .then(onCompleted)
       .catch((err) => {
         console.log(`Error removing register/${data.key} document`, err);

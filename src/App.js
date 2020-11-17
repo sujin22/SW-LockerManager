@@ -7,6 +7,7 @@ import Login from './routes/Login';
 import MainExample from './routes/MainExample';
 import SignUpExample from './routes/SignUpExample';
 import auth from './server/auth';
+import RegisterExample from './routes/RegisterExample';
 
 function App(){
   const [user, setUser] = useState();
@@ -21,6 +22,7 @@ function App(){
       <Route path="/" exact={true} component={Login}/>
       <Route path="/main" component={MainExample} />
       <Route path="/sign" component={SignUpExample} />
+      <Route path="/register" component={RegisterExample} />
     </HashRouter>
   );
 }

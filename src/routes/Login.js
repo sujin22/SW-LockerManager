@@ -17,8 +17,12 @@ class Login extends React.Component {
 
     async componentDidMount() {
         if (this.auth.isLogin()) {
-          this.props.history.push('/main');
+          this.navigate('main');
         }
+    }
+
+    navigate = (path) => {
+      this.props.history.push('/'+path);
     }
 
     loginHandler = (e) => {
@@ -28,7 +32,9 @@ class Login extends React.Component {
 
     loginClickHandler = () =>{
         const { id, password } = this.state;
-        this.auth.login(id, password);
+        this.auth.login(id, password).then((success) => {
+          if(success) { this.navigate('main'); }
+        });
     }
 
     render(){
@@ -64,7 +70,12 @@ class Login extends React.Component {
                   </button>
                   <button 
                     className="loginBtn" 
-                    onClick={() => this.props.history.push('/sign')}>
+                    onClick={() => this.navigate('sign')}>
+                      SIGN UP
+                  </button>
+                  <button 
+                    className="loginBtn" 
+                    onClick={() => this.navigate('register')}>
                       REGISTER
                   </button>
                     

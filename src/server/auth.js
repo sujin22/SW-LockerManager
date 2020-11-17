@@ -24,16 +24,17 @@ const auth = () => {
     return getCurrentUser() ? true : false;
   }
 
-  // 로그인
+  // 로그인 (success 반환)
   const login = async (id='', pw='') => {
-    if (id === '' || pw === '') { console.log("Input data is empty"); return; }
-    if (isLogin()) { console.log("Alreay login"); return; }
+    if (id === '' || pw === '') { console.log("Input data is empty"); return false; }
+    if (isLogin()) { console.log("Alreay login"); return false; }
     const data = await UserDB().getUserData(id);
-    if (!data) { alert("회원이 아닙니다! 회원가입을 진행해주세요."); return; } 
+    if (!data) { alert("회원이 아닙니다! 회원가입을 진행해주세요."); return false; } 
     else {
-      if (data.pw !== pw) { alert("비밀번호가 일치하지 않습니다!"); return; }
+      if (data.pw !== pw) { alert("비밀번호가 일치하지 않습니다!"); return false; }
       setUser(data);
       listener.notify();
+      return true;
     }
   }
   // 로그아웃
@@ -51,7 +52,7 @@ const auth = () => {
   // 리스너 삭제 (실제로는 콜백 함수 삭제)
   const removeListener = () => { listener.notify = initial_notify; }
   
-  return { isLogin, login, logout, addListener, removeListener }
+  return { getCurrentUser, isLogin, login, logout, addListener, removeListener }
 }
 
 export default auth;
