@@ -1,23 +1,24 @@
 import React from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
-import { UserDB } from '../firebase.js'
+import auth from '../server/auth';
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
     constructor () {
         super();
-        this.firestore = UserDB();
         this.state = {
           //showModal: false,
           id: "",
           password:""
         };
+        this.auth = auth();
       }
 
     async componentDidMount() {
-        const userData = await this.firestore.getUserData();
-        console.log(userData);
+        if (this.auth.isLogin()) {
+          this.props.history.push('/main');
+        }
     }
 
     loginHandler = (e) => {
@@ -26,11 +27,8 @@ class Login extends React.Component {
     };  
 
     loginClickHandler = () =>{
-        const userData = this.state;
-        this.firestore.setUserData(userData, () => {
-            alert('유저 데이터 추가 완료!');
-            this.setState({id:'', password: ''});
-        });
+        const { id, password } = this.state;
+        this.auth.login(id, password);
     }
 
     render(){
@@ -63,6 +61,11 @@ class Login extends React.Component {
                     className="loginBtn" 
                     onClick={this.loginClickHandler}>
                       Login
+                  </button>
+                  <button 
+                    className="loginBtn" 
+                    onClick={() => this.props.history.push('/sign')}>
+                      REGISTER
                   </button>
                     
                 </header>

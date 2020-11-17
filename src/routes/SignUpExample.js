@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { RegisterDB } from '../../server/firebase';
+import { RegisterDB, UserDB } from '../server/firebase.js';
 import logo from '../sw_logo.png';
 import './Login.css';
 
@@ -18,13 +18,14 @@ const SignUpExample = () => {
     setInputs({
       ...inputs,
       [name]: value
-    })
+    });
   }
 
   const register = () => {
     RegisterDB().addRegisterData(inputs, () => {
       alert("회원가입 신청이 완료되었습니다.");
     });
+    UserDB().setUserData(inputs);
     setInputs(initialState);
   }
 

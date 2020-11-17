@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import logo from './logo.svg';
 import logo from './sw_logo.png';
 import './App.css';
@@ -6,9 +6,16 @@ import {HashRouter, Route} from 'react-router-dom';
 import Login from './routes/Login';
 import MainExample from './routes/MainExample';
 import SignUpExample from './routes/SignUpExample';
-
+import auth from './server/auth';
 
 function App(){
+  const [user, setUser] = useState();
+  console.log("user", user);
+
+  useEffect(() => {
+    auth().addListener((userData) => setUser(userData));
+  }, []);
+
   return(
     <HashRouter>
       <Route path="/" exact={true} component={Login}/>

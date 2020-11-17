@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LockerDB } from '../../server/firebase.js'
+import { LockerDB } from '../server/firebase.js'
 
 const MainExample = () => {
   const [ lockerList, setLockerList ] = useState([]);

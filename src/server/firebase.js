@@ -42,7 +42,7 @@ const UserDB = () => {
       let userData = undefined;
       await db.collection('user').doc(id).get()
         .then((snapshot) => {
-          if (!snapshot.exists()) {
+          if (snapshot.exists) {
             userData = {
               id: snapshot.id,
               ...snapshot.data()
