@@ -1,8 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {Component} from 'react';
 import './Sidebar.css'
 import icon_expanded from '../icon_expanded.png';
 import icon_collapsed from '../icon_collapsed.png';
+import icon_logout from '../icon_logout.png';
 
 class Sidebar extends Component{
     state ={
@@ -33,15 +35,21 @@ class Sidebar extends Component{
                 <div className="user_info">
                     16011144님, 안녕하세요.
                 </div>
+
                 <div className="buttons">
-                    <button onclick="alert('로그아웃')">로그아웃</button>
+                    <button className="btn_logout" 
+                            onclick="alert('로그아웃')"
+                    >
+                        <img src={icon_logout} className="icon_logout" alt="logout"/>
+                        로그아웃
+                    </button>
                 </div>            
 
-                <ul>
-                    <li>내 사물함 정보</li>
-                    <li>사물함 배정</li>
-                    <li>회원가입신청관리</li>
-                </ul>
+                <div className="nav">
+                    <Link to="/">내 사물함 정보</Link>
+                    <Link to="/">사물함 배정</Link>
+                    <Link to="/">회원가입신청관리</Link>
+                </div>
 
             </div>
 
