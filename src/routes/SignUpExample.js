@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { RegisterDB } from '../firebase';
+import { RegisterDB } from '../../server/firebase';
 import logo from '../sw_logo.png';
 import './Login.css';
 

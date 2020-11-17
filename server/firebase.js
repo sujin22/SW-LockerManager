@@ -281,4 +281,5 @@ const LockerDB = () => {
   return { getLockerData, addLockerData, setLockerData, addLockerDataListener, removeLockerDataListener }
 }
 
+export default db;
 export { UserDB, RegisterDB, LockerDB };
