@@ -12,18 +12,19 @@ function App() {
 	const [user, setUser] = useState();
 
 	let router;
-	const navigate = (pageName) => {
+	const navigate = (pageName='') => {
 		router.history.push('/'+pageName);
 	}
-	
+
 	useEffect(() => {
 		auth().addListener((userData) => setUser(userData));
 	}, []);
 
 	useEffect(() => {
-		
-		if (user) {
-		navigate('main');
+		if (!user) {
+			navigate();
+		} else {
+			navigate('main');
 		}
 	}, [user])
 
