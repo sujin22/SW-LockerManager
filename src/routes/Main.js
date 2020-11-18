@@ -16,6 +16,8 @@ import LockerContainer from './../components/LockerContainer';
         this.myRef = React.createRef();
         this.state = {
             isScrolled: false,
+            selected_area: 'A',
+            selected_area_col: 10,
         }
     }
 
@@ -24,6 +26,7 @@ import LockerContainer from './../components/LockerContainer';
             alert("로그인이 필요합니다!");
             this.props.history.goBack();
         }
+        this.setState({selected_area:'A', selected_area_col: 10})
     }
 
     scrollToElement(){
@@ -56,8 +59,13 @@ import LockerContainer from './../components/LockerContainer';
         })
     }
 
+    selectArea(){
+        // this.setState({selected_area:'B'})
+    }
+
     render(){
         window.addEventListener('scroll', this.handleScroll);
+        const{selected_area, selected_area_col} = this.state;
         return(
             <div className="Main">
                 <div className="sidebar">
@@ -91,7 +99,7 @@ import LockerContainer from './../components/LockerContainer';
                                     사물함을 선택하세요
                                 </p>
                                 <div className="up-on-scroll">
-                                    <Minimap /> 
+                                    <Minimap/> 
                                 </div>
                             </div>
                             
@@ -102,10 +110,10 @@ import LockerContainer from './../components/LockerContainer';
                                 </p>
                                 <div className="up-on-scroll">
                                     {
-                                        this.state.isScrolled && <LockerContainer area={'A'}/>
+                                        this.state.isScrolled && <LockerContainer area={selected_area} col={selected_area_col}/>
                                     }
                                 </div>
-                                
+                                <button onClick={this.selectArea('B')}>aa</button>
                             </div>
                         </div>
                     </div>
