@@ -51,3 +51,6 @@
     margin-bottom: 10vh;
   }
 
+  .up-on-scroll{
+    transition: transform 0.7s, opacity 1s;
+  }
