@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import './Locker.css';
+import { LockerDB } from '../server/firebase';
 
-function Locker({id, row, col}){
-    console.log(id +" "+ row+" "+col);
-
+const Locker = ({ data }) => {
+    const { area, number, able, user } = data;
 
     return(
-        <div className="locker_box">
-            <p>사물함이 출력될 부분</p>
+        <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'white', backgroundColor: able? "blue" : "red", transition: "background-color 1s"}}>
+          {area}<br />{number}
         </div>
     );
 }
 Locker.propTypes = {
-    id: Proptypes.string,
-    low: Proptypes.number.isRequired,
-    col: Proptypes.number.isRequired,
+    data: Proptypes.shape({
+        area: Proptypes.string.isRequired,
+        number: Proptypes.number.isRequired,
+        able: Proptypes.bool.isRequired,
+        user: Proptypes.string
+    })
 };
 
 export default Locker;

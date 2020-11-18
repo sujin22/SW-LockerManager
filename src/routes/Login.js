@@ -1,26 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
-import { firebase_module } from '../firebase.js'
+import auth from '../server/auth';
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
-
     constructor () {
         super();
-        this.firestore = firebase_module();
         this.state = {
           //showModal: false,
           id: "",
           password:""
         };
+        this.auth = auth();
       }
 
     async componentDidMount() {
-        const userData = await this.firestore.getUserData();
-        const jh = await this.firestore.getUserData('14011224');
-        console.log(userData)
-        console.log(jh)
+        if (this.auth.isLogin()) {
+          this.navigate('main');
+        }
+    }
+
+    navigate = (path) => {
+      this.props.history.push('/'+path);
     }
 
     loginHandler = (e) => {
@@ -29,14 +31,11 @@ class Login extends React.Component {
     };  
 
     loginClickHandler = () =>{
-        const userData = this.state;
-        this.firestore.setUserData(userData, () => {
-            alert('유저 데이터 추가 완료!');
-            this.setState({id:'', password: ''});
+        const { id, password } = this.state;
+        this.auth.login(id, password).then((success) => {
+          // if(success) { this.navigate('main'); }
         });
-        
     }
-    
 
     render(){
         const { id, password } = this.state;
@@ -68,6 +67,16 @@ class Login extends React.Component {
                     className="loginBtn" 
                     onClick={this.loginClickHandler}>
                       Login
+                  </button>
+                  <button 
+                    className="loginBtn" 
+                    onClick={() => this.navigate('sign')}>
+                      SIGN UP
+                  </button>
+                  <button 
+                    className="loginBtn" 
+                    onClick={() => this.navigate('register')}>
+                      REGISTER
                   </button>
                     
                 </header>

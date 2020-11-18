@@ -1,9 +1,9 @@
-import React from 'react';
-import {Component} from 'react';
+import React, { Component } from 'react';
 import './Main.css';
 import Sidebar from '../components/Sidebar';
 import Minimap from '../components/Minimap';
-import Locker from '../components/Locker';
+import auth from './../server/auth';
+import LockerContainer from './../components/LockerContainer';
 
 
   class Main extends Component{
@@ -14,6 +14,16 @@ import Locker from '../components/Locker';
         this.handleScroll = this.handleScroll.bind(this);
         
         this.myRef = React.createRef();
+        this.state = {
+            isScrolled: false,
+        }
+    }
+
+    componentDidMount() {
+        if(!auth().isLogin()) {
+            alert("로그인이 필요합니다!");
+            this.props.history.goBack();
+        }
     }
 
     scrollToElement(){
@@ -23,6 +33,7 @@ import Locker from '../components/Locker';
           left: 0,
           behavior: 'smooth'
         });
+        this.setState({isScrolled: true})
     }
 
     /*스크롤 시 opacity, transform 조절*/
@@ -90,8 +101,11 @@ import Locker from '../components/Locker';
                                     이용하고 싶은 칸을 선택하세요
                                 </p>
                                 <div className="up-on-scroll">
-                                    <Locker/>
+                                    {
+                                        this.state.isScrolled && <LockerContainer area={'A'}/>
+                                    }
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
