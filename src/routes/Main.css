@@ -44,11 +44,10 @@
 
   .minimap_title, .locker_title{
     color: #1D4E89;
-    
     font-size: 18px;
   }
 
-  .assignment_minimap{
+  .assignment_minimap, .assignment_locker{
     margin-bottom: 10vh;
   }
 

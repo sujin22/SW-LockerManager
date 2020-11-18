@@ -4,11 +4,17 @@ import './Main.css';
 import Sidebar from '../components/Sidebar';
 import Intro from '../components/Intro';
 import Minimap from '../components/Minimap';
+import Locker from '../components/Locker';
 
 class Main extends Component{
+    state = {
+        locker_id: 'A',
+        locker_row: 10,
+        locker_col: 6,
+    }
 
     render(){
-
+        const {locker_id,locker_row,locker_col} = this.state;
         return(
             
             <div className="Main">
@@ -18,7 +24,8 @@ class Main extends Component{
 
                 <div className="content">
                     <Intro />
-                    <div className="assignment" ref={this.scrollRef}>
+                    
+                    <div className="assignment">
                         <div className="assignment_wrapper">
                             <p className="assignment_title">
                                 사물함 신청
@@ -36,7 +43,11 @@ class Main extends Component{
                                 <p className="locker_title">
                                     이용하고 싶은 칸을 선택하세요
                                 </p>
-                                
+                                <Locker
+                                id={locker_id}
+                                row={locker_row}
+                                col={locker_col} 
+                                />
                             </div>
                         </div>
                     </div>
@@ -46,5 +57,5 @@ class Main extends Component{
         );
     }
 }
-
 export default Main;
+
