@@ -85,7 +85,7 @@ class Signup extends React.Component{
                     <div className="Modal-overlay" onClick={this.props.close} />
                     <div className="Modal">
                     <p className="title">회원 가입</p>
-                    <div className="content">                       
+                    <div className="mContent">                       
                                 
                     <input
                         name="id"
