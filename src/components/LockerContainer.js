@@ -4,9 +4,8 @@ import { LockerDB } from '../server/firebase';
 import Locker from './Locker';
 
 // function Locker({id, row, col}){
-const LockerContainer = ({ area }) => {
+const LockerContainer = ({ area, col }) => {
     const [lockerList, setLockerList] = useState([]);
-
     useEffect(() => {
         console.log("LockerContainer Created!");
         LockerDB().getLockerData(area).then((data) => {
@@ -15,14 +14,17 @@ const LockerContainer = ({ area }) => {
     }, [])
 
     return(
-        <div className="locker_box">
-            <p>사물함이 출력될 부분</p>
+        <div className="locker_border"
+            style={{width:50*(col+1)}}>
             {
                 lockerList.map((locker) => {
-                  console.log(locker)
-                  return (
+                console.log(locker)
+                console.log(col)
+
+                return (
                     <Locker key={locker.number} data={locker} />
-                  )
+                )
+                
                 })
             }
         </div>

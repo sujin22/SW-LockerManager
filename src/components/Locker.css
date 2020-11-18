@@ -1,8 +1,7 @@
-.locker_box{
+.locker_border{
     margin: auto; 
-    width: 60vw;
-    height: 60vh;
+    /* width: 50vh; */
     
-
-    border: 2px solid black; 
+    /* border: 2px solid black;  */
+    display: table;
 }
