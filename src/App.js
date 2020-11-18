@@ -3,37 +3,37 @@ import './App.css';
 import {HashRouter, Route} from 'react-router-dom';
 import Login from './routes/Login';
 // import MainExample from './routes/MainExample';
-import SignUpExample from './routes/SignUpExample';
+// import SignUpExample from './routes/SignUpExample';
 import RegisterExample from './routes/RegisterExample';
 import Main from './routes/Main';
 import auth from './server/auth';
 
-function App(){
-  const [user, setUser] = useState();
-  
-  let router;
-  const navigate = (pageName) => {
-    router.history.push('/'+pageName);
-  }
+function App() {
+	const [user, setUser] = useState();
 
-  useEffect(() => {
-    auth().addListener((userData) => setUser(userData));
-  }, []);
+	let router;
+	const navigate = (pageName) => {
+		router.history.push('/'+pageName);
+	}
+	
+	useEffect(() => {
+		auth().addListener((userData) => setUser(userData));
+	}, []);
 
-  useEffect(() => {
-    if (user) {
-      navigate('main');
-    }
-  }, [user])
+	useEffect(() => {
+		
+		if (user) {
+		navigate('main');
+		}
+	}, [user])
 
-  return(
-    <HashRouter ref={(r) => { router = r; }}>
-      <Route path="/" exact={true} component={Login}/>
-      <Route path="/main" component={Main} />
-      <Route path="/sign" component={SignUpExample} />
-      <Route path="/register" component={RegisterExample} />
-    </HashRouter>
-  );
+	return(
+		<HashRouter ref={(r) => { router = r; }}>
+		<Route path="/" exact={true} component={Login}/>
+		<Route path="/main" component={Main} />
+		<Route path="/register" component={RegisterExample} />
+		</HashRouter>
+	);
 }
 
 // const initLockerData = () => {

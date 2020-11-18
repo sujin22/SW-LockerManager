@@ -4,7 +4,7 @@ import './Main.css';
 import Sidebar from '../components/Sidebar';
 import Intro from '../components/Intro';
 import Minimap from '../components/Minimap';
-import auth from './../server/auth';
+import auth from '../server/auth';
 import LockerContainer from './../components/LockerContainer';
 
   class Main extends Component{
