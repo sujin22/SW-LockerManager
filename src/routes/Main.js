@@ -1,9 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
-import ReactDOM from 'react';
 import './Main.css';
 import Sidebar from '../components/Sidebar';
-import Intro from '../components/Intro';
 import Minimap from '../components/Minimap';
 import Locker from '../components/Locker';
 
@@ -56,8 +54,7 @@ import Locker from '../components/Locker';
                 </div>
 
                 <div className="content">
-                    {/* <Intro /> */}
-                    <div className="intro">
+                    <div className="intro background-change-wrap">
                         <div className="intro_wrapper" >
                             <p className="intro_title">
                             Sejong Software<br/>Locker
