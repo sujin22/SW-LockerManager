@@ -1,33 +1,53 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
   .Main {
-    min-height: 100vh;
-    display: flex;
-  }
-  
-  .sidebar {
-    width: 200px;
-    padding: 17px 10px 0;
-    background: black;
-    color: white;
+    margin-top: 0px;
+
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
   
-  .collapsed {
-    width: 60px;
+  .sidebar{
+    position: fixed;
+    margin-top: 0px;
+    height: 100%;
+    z-index: 2;
   }
+
   
   .content {
     width: 100%;
-    padding: 0 20px 0;
+    z-index: 1;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
+
+  .assignment{
+    display: table;
+    
+    width: 100%;
+    height: 100vh;
+
+    text-align: center;
+    
+  }
+
+  .assignment_wrapper{
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .assignment_title{
+    font-weight: bold;
+    font-size: 48px;
+  }
+
+  .minimap_title, .locker_title{
+    color: #1D4E89;
+    font-size: 18px;
+  }
+
+  .assignment_minimap, .assignment_locker{
+    margin-bottom: 10vh;
+  }
+
