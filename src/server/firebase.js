@@ -177,7 +177,6 @@ const LockerDB = () => {
         await db.collection(`area/${area}/locker`).orderBy('number').get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
-            // TODO: 데이터베이스 구조 짜고 그에 맞춰 리스트에 추가
             const item = {
               area,
               ...doc.data()
@@ -194,7 +193,6 @@ const LockerDB = () => {
       await db.collection(`area/${area}/locker`).orderBy('number').get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
-            // TODO: 데이터베이스 구조 짜고 그에 맞춰 리스트에 추가
             const item = {
               area,
               ...doc.data()

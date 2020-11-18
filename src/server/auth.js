@@ -22,20 +22,31 @@ const auth = () => {
     return Object.keys(userSessionData).length === 0 ? undefined : userSessionData;
   }
 
+  const isAdmin = () => {
+    const user = getCurrentUser();
+    if (user) {
+      if (user.id === '00000000') { return true; }
+      else { return false; }
+    } else {
+      alert("로그인이 필요합니다!");
+      return false;
+    }
+  }
+
   // 로그인 상태 확인
   const isLogin = () => {
     return getCurrentUser() ? true : false;
   }
 
   // 로그인 (success 반환)
-  const login = async (id='', pw='') => {
-    if (id === '' || pw === '') { console.log("Input data is empty"); return false; }
+  const login = async (id='', password='') => {
+    if (id === '' || password === '') { console.log("Input data is empty"); return false; }
     if (isLogin()) { console.log("Alreay login"); return false; }
     const data = await UserDB().getUserData(id);
     if (!data) { alert("회원이 아닙니다! 회원가입을 진행해주세요."); return false; } 
     else {
-      if (data.pw !== pw) { alert("비밀번호가 일치하지 않습니다!"); return false; }
-      delete data.pw;
+      if (data.password !== password) { alert("비밀번호가 일치하지 않습니다!"); return false; }
+      // delete data.password;
       sessionStorage.setItem('SWLM_USER_DATA', JSON.stringify(data));
       setUserSessionData(data);
       listener.notify();
@@ -58,7 +69,7 @@ const auth = () => {
   // 리스너 삭제 (실제로는 콜백 함수 삭제)
   const removeListener = () => { listener.notify = initial_notify; }
   
-  return { getCurrentUser, isLogin, login, logout, addListener, removeListener }
+  return { getCurrentUser, isAdmin, isLogin, login, logout, addListener, removeListener }
 }
 
 export default auth;
