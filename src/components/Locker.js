@@ -7,7 +7,7 @@ const Locker = ({ data }) => {
     const { area, number, able, user } = data;
 
     return(
-        <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'white', backgroundColor: able? "blue" : "red", transition: "background-color 1s"}}>
+        <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'white', backgroundColor: able? "blue" : "gray", transition: "background-color 1s"}}>
           {area}<br />{number}
         </div>
     );
