@@ -2,18 +2,27 @@ import React from 'react';
 import './Login.css';
 import logo from '../sw_logo.png';
 import auth from '../server/auth';
+import Signup from '../components/Signup.js';
 // import Modal from 'react-modal';
 
 class Login extends React.Component {
     constructor () {
         super();
         this.state = {
-          //showModal: false,
-          id: "",
-          password:""
+            showModal: false,
+            id: "",
+            password:""
         };
         this.auth = auth();
-      }
+    }
+
+    handleOpenModal = () =>{
+        this.setState({ showModal: true });
+    }
+    
+    handleCloseModal = () =>{        
+        this.setState({ showModal: false });
+    }
 
     async componentDidMount() {
         if (this.auth.isLogin()) {
@@ -22,7 +31,7 @@ class Login extends React.Component {
     }
 
     navigate = (path) => {
-      this.props.history.push('/'+path);
+        this.props.history.push('/'+path);
     }
 
     loginHandler = (e) => {
@@ -30,10 +39,16 @@ class Login extends React.Component {
         this.setState({ [name]: value });
     };  
 
+    loginNumHandler = (e) => {
+        const { name, value } = e.target;
+        const newValue = value.replace(/[^0-9]/g, '');
+        this.setState({ [name]: newValue });
+    };  
+
     loginClickHandler = () =>{
         const { id, password } = this.state;
         this.auth.login(id, password).then((success) => {
-          // if(success) { this.navigate('main'); }
+            // if(success) { this.navigate('main'); }
         });
     }
 
@@ -46,14 +61,13 @@ class Login extends React.Component {
                     <p>
                     Login
                     </p>
-
-                    <input
+                  <input
                     name="id"
                     className="loginId"
-                    type="text"
+                    input type="text"
                     placeholder="학번"
                     value={id}
-                    onChange={this.loginHandler}
+                    onChange={this.loginNumHandler}
                   />
                   <input
                     name="password"
@@ -69,17 +83,17 @@ class Login extends React.Component {
                       Login
                   </button>
                   <button 
-                    className="loginBtn" 
-                    onClick={() => this.navigate('sign')}>
-                      SIGN UP
-                  </button>
+                    className="SignupBtn" 
+                    onClick={this.handleOpenModal}>
+                      Signup
+                  </button>      
                   <button 
                     className="loginBtn" 
                     onClick={() => this.navigate('register')}>
                       REGISTER
-                  </button>
-                    
+                  </button>              
                 </header>
+                <Signup isOpen={this.state.showModal} close={this.handleCloseModal} />
             </div>    
         );
     }
