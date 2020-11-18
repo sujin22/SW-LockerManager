@@ -11,14 +11,24 @@ import RegisterExample from './routes/RegisterExample';
 
 function App(){
   const [user, setUser] = useState();
-  console.log("user", user);
+  
+  let router;
+  const navigate = (pageName) => {
+    router.history.push('/'+pageName);
+  }
 
   useEffect(() => {
     auth().addListener((userData) => setUser(userData));
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      navigate('main');
+    }
+  }, [user])
+
   return(
-    <HashRouter>
+    <HashRouter ref={(r) => { router = r; }}>
       <Route path="/" exact={true} component={Login}/>
       <Route path="/main" component={MainExample} />
       <Route path="/sign" component={SignUpExample} />

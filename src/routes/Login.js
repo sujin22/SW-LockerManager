@@ -33,7 +33,7 @@ class Login extends React.Component {
     loginClickHandler = () =>{
         const { id, password } = this.state;
         this.auth.login(id, password).then((success) => {
-          if(success) { this.navigate('main'); }
+          // if(success) { this.navigate('main'); }
         });
     }
 
