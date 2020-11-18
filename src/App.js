@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import logo from './logo.svg';
-import logo from './sw_logo.png';
 import './App.css';
 import {HashRouter, Route} from 'react-router-dom';
 import Login from './routes/Login';
-import MainExample from './routes/MainExample';
+// import MainExample from './routes/MainExample';
 import SignUpExample from './routes/SignUpExample';
-import auth from './server/auth';
 import RegisterExample from './routes/RegisterExample';
+import Main from './routes/Main';
+import auth from './server/auth';
 
 function App(){
   const [user, setUser] = useState();
@@ -30,7 +29,7 @@ function App(){
   return(
     <HashRouter ref={(r) => { router = r; }}>
       <Route path="/" exact={true} component={Login}/>
-      <Route path="/main" component={MainExample} />
+      <Route path="/main" component={Main} />
       <Route path="/sign" component={SignUpExample} />
       <Route path="/register" component={RegisterExample} />
     </HashRouter>

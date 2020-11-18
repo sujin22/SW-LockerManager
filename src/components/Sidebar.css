@@ -1,0 +1,94 @@
+.sidebar {
+    width: 60px;
+    /* padding: 10px 1px 0; */
+    
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+  }
+
+.expanded {
+  width: 200px;
+  height: 100%;
+  background: black;
+  color: white;
+}
+
+.icon_collapsed, .icon_expanded{
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.sidebar_contents{
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.user_info{
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.btn_logout{
+  height: 40px;
+  vertical-align: middle;
+
+  border: 1px solid skyblue;
+  background-color: white;
+  color: black;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  border-radius: 10px;
+  
+}
+
+.btn_logout:hover{
+  background-color: skyblue;
+  color: white; 
+}
+
+.icon_logout{
+  width: 18px;
+  height: 18px;
+  object-fit: cover;
+
+  margin-right: 5px;
+ 
+}
+.nav{
+  padding-inline-start: 0;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.nav a{
+  text-decoration: none;
+
+  color: white;
+  /* font-size: 12px; */
+  text-align: center;
+
+  display: block;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+.nav a:hover{
+  background-color: skyblue;
+}
