@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { LockerDB } from '../server/firebase';
 import Locker from './Locker';
-import Modal from './Modal/Modal.js';
+import Lockerinfo from './LockerInfo.js';
 
 // function Locker({id, row, col}){
 const LockerContainer = ({ area, col }) => {
@@ -14,16 +14,15 @@ const LockerContainer = ({ area, col }) => {
         })
     }, [])
 
-    const [ visible, setVisible] = useState(true);
+    const [ visible, setVisible] = useState(false);
+    const [ curLocker, setcurLocker] = useState([]);
 
     const handleOpenInfoModal = () =>{
         setVisible(true);
-        console.log("open"+visible);
     }
   
     const handleCloseInfoModal = () =>{        
         setVisible(false);
-        console.log("close"+visible);
     }
 
     //TODO : 사용자 검사
@@ -31,7 +30,7 @@ const LockerContainer = ({ area, col }) => {
         return false;
     }
 
-    const openInfoHandler = () => {        
+    const openInfoHandler = (locker) => {        
         //사용자일경우 신청
         if(isAdmin()){
             alert("신청하시겠습니까?");
@@ -39,11 +38,10 @@ const LockerContainer = ({ area, col }) => {
         }       
         
          //관리자일 경우 정보열람
-        console.log("locker"+visible);
         if(!visible){
             handleOpenInfoModal();
-            
-        }
+            setcurLocker(locker);
+        }            
     }; 
 
     return(
@@ -55,12 +53,10 @@ const LockerContainer = ({ area, col }) => {
                 //console.log(col)
 
                 return (
-                    <Locker key={locker.number} data={locker} handler={openInfoHandler} />
-                )
-                
+                    <Locker key={locker.number} data={locker} handler={() => openInfoHandler(locker)} /> )             
                 })                
             }
-            <Modal isOpen={visible} close={handleCloseInfoModal} />
+            <Lockerinfo isOpen={visible} close={handleCloseInfoModal}  data={curLocker}/>
         </div>
     );
 }
