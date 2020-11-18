@@ -35,6 +35,7 @@ const auth = () => {
     if (!data) { alert("회원이 아닙니다! 회원가입을 진행해주세요."); return false; } 
     else {
       if (data.pw !== pw) { alert("비밀번호가 일치하지 않습니다!"); return false; }
+      delete data.pw;
       sessionStorage.setItem('SWLM_USER_DATA', JSON.stringify(data));
       setUserSessionData(data);
       listener.notify();

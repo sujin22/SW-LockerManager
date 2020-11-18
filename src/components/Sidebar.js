@@ -5,40 +5,57 @@ import './Sidebar.css'
 import icon_expanded from '../icon_expanded.png';
 import icon_collapsed from '../icon_collapsed.png';
 import icon_logout from '../icon_logout.png';
+import auth from './../server/auth';
 
-class Sidebar extends Component{
-    state ={
-        isSidebarExpanded: false
-    };
+class Sidebar extends Component {
+    constructor() {
+        super();
+        this.state ={
+            user: {},
+            isSidebarExpanded: false
+        };
+        this.auth = auth();
+    }
+
+    componentDidMount = () => {
+        if (this.auth.isLogin()) {
+            this.setState({user: this.auth.getCurrentUser()})
+        }
+    }
+    
+
+    logout = () => {
+        this.auth.logout();
+    }
 
     sidebarCollapsed = () => (
         <div className="sidebar">
-                    <span
-                    role="presentation"
-                    onMouseOver={() => this.setState({isSidebarExpanded:true})}
-                    >
-                         <img src={icon_expanded} className="icon_expanded" alt="expanded" />
-                    </span>
-                </div>
+            <span
+                role="presentation"
+                onMouseOver={() => this.setState({isSidebarExpanded:true})}
+            >
+                <img src={icon_expanded} className="icon_expanded" alt="expanded" />
+            </span>
+        </div>
     );
     
-    sidebarExpanded = () => (
+    sidebarExpanded = (user) => (
         <div className="sidebar expanded"
         onMouseLeave={() => this.setState({isSidebarExpanded: false})}>
             <span
-            role="presentation"
+                role="presentation"
             >
                 <img src={icon_collapsed} className="icon_collapsed" alt="collapsed" />
             </span>
 
             <div className="sidebar_contents">
                 <div className="user_info">
-                    16011144님, 안녕하세요.
+                    {user.name}님, 안녕하세요.
                 </div>
 
                 <div className="buttons">
                     <button className="btn_logout" 
-                            onclick="alert('로그아웃')"
+                            onClick={this.logout}
                     >
                         <img src={icon_logout} className="icon_logout" alt="logout"/>
                         로그아웃
@@ -56,14 +73,12 @@ class Sidebar extends Component{
         </div>
     );
 
-    
-
     render(){
-        const { isSidebarExpanded } = this.state;
+        const { user, isSidebarExpanded } = this.state;
     
         return(
             <div>
-                {isSidebarExpanded && this.sidebarExpanded()}
+                {isSidebarExpanded && this.sidebarExpanded(user)}
                 {isSidebarExpanded || this.sidebarCollapsed()}
             </div>
         );
