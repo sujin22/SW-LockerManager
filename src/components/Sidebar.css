@@ -86,9 +86,9 @@
   display: block;
   flex-direction: column;
 
-  margin-bottom: 20px;
+  padding: 20px;
 }
 
-/* .nav a:not(:last-child){
-  margin-bottom: 20px;
-} */
+.nav a:hover{
+  background-color: skyblue;
+}
