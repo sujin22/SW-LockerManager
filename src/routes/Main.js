@@ -1,20 +1,30 @@
 import React from 'react';
 import {Component} from 'react';
+import ReactDOM from 'react';
 import './Main.css';
 import Sidebar from '../components/Sidebar';
 import Intro from '../components/Intro';
 import Minimap from '../components/Minimap';
 import Locker from '../components/Locker';
 
-class Main extends Component{
-    state = {
-        locker_id: 'A',
-        locker_row: 10,
-        locker_col: 6,
+  class Main extends Component{
+    constructor(props){
+        super(props);
+        this.scrollToElement = this.scrollToElement.bind(this);
+
+        this.myRef = React.createRef();
+    }
+
+    scrollToElement(){
+        console.log("눌렸음");
+        window.scrollTo({
+          top: this.myRef.current.offsetTop,
+          left: 0,
+          behavior: 'smooth'
+        });
     }
 
     render(){
-        const {locker_id,locker_row,locker_col} = this.state;
         return(
             
             <div className="Main">
@@ -23,9 +33,23 @@ class Main extends Component{
                 </div>
 
                 <div className="content">
-                    <Intro />
-                    
-                    <div className="assignment">
+                    {/* <Intro /> */}
+                    <div className="intro">
+                        <div className="intro_wrapper">
+                            <p className="intro_title">
+                            Sejong Software<br/>Locker
+                            </p>
+                            <p className="intro_content">
+                            소프트웨어학과 학우 여러분을 위한 사물함이 준비되어있습니다.
+                            </p>
+                            <button className="intro_btn"
+                                    onClick={this.scrollToElement}
+                            >
+                                Click
+                            </button>
+                        </div>
+                    </div>
+                    <div className="assignment" ref={this.myRef}>
                         <div className="assignment_wrapper">
                             <p className="assignment_title">
                                 사물함 신청
@@ -44,9 +68,6 @@ class Main extends Component{
                                     이용하고 싶은 칸을 선택하세요
                                 </p>
                                 <Locker
-                                id={locker_id}
-                                row={locker_row}
-                                col={locker_col} 
                                 />
                             </div>
                         </div>
