@@ -113,7 +113,6 @@ import LockerContainer from './../components/LockerContainer';
                                         this.state.isScrolled && <LockerContainer area={selected_area} col={selected_area_col}/>
                                     }
                                 </div>
-                                <button onClick={this.selectArea('B')}>aa</button>
                             </div>
                         </div>
                     </div>
