@@ -18,7 +18,7 @@ class Main extends Component{
         this.state = {
             isScrolled: false,
             selected_area: 'A',
-            user: {},
+            user: this.props.user,
             lockers: [],
         }
         this.auth = auth();
@@ -31,8 +31,6 @@ class Main extends Component{
             alert("로그인이 필요합니다!");
             this.props.history.goBack();
             return;
-        } else {
-            this.setState({user: this.auth.getCurrentUser()})
         }
         LockerDB().getLockerData(selected_area).then((data) => {
             this.setState({lockers: data});
@@ -129,14 +127,15 @@ class Main extends Component{
 
     render(){
         window.addEventListener('scroll', this.handleScroll);
-        const{user, lockers} = this.state;
+        const{lockers} = this.state;
+        const { user } = this.props;
 
-        console.log("@@@@"+user.id);
+        console.log("User in Main", user);
     
         return(
             <div className="Main">
                 <div className="sidebar">
-                    { Object.keys(user).length > 0 && <Sidebar admin={this.auth.isAdmin()} user={user}/> }
+                    { user && <Sidebar admin={this.auth.isAdmin()} user={user}/> }
                 </div>
 
                 <div className="content">

@@ -19,7 +19,7 @@ function MyPage(){
     return (
         <div className="Mypage">
             <div className="sidebar">
-                { Object.keys(user).length > 0  && <Sidebar admin={auth().isAdmin()} user={user} /> }
+                { user && <Sidebar admin={auth().isAdmin()} user={user} /> }
             </div>
             
             <div className="mypage_container">
