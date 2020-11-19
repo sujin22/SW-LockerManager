@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Modal/Modal.scss';
 import Proptypes from 'prop-types';
 import './LockerInfo.scss'
+import { LockerDB, UserDB } from '../server/firebase';
 
 
 
@@ -38,7 +39,15 @@ const Lockerinfo = ({ isOpen, close, data }) => {
 
     //삭제버튼 클릭시
     const deleteHandler =()=>{
-        alert("삭제하시겠습니까?");  
+      const isConfirmed = window.confirm("삭제하시겠습니까?"); 
+      if (isConfirmed) {
+        LockerDB().initLockerData({area, number}, () => {
+          UserDB().initUserData(user.id, () => {
+            alert('삭제되었습니다.');
+            close();
+          })
+        })
+      }
     }
 
     //수정버튼 클릭시
@@ -64,7 +73,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
         if(newUserId.length>1){
         }
       }else if( newUserId ){
-        if(user.id != newUserId){          
+        if(user.id !== newUserId){          
         }
       }
     }
@@ -119,7 +128,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
                 <p>연락처 : {user?user.phone:""}</p>
                 <div className="twobutton-wrap">
                   <button onClick={editHandler}>사물함 정보 수정</button> 
-                  <button onClick={deleteHandler}>사용자 삭제</button> 
+                  { user && <button onClick={deleteHandler}>사용자 삭제</button> }
                 </div>              
               </React.Fragment>
               }

@@ -101,7 +101,7 @@ const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
                     <Locker key={locker.number} data={locker} handler={() => openInfoHandler(locker)} /> )             
                 })                
             }
-            <Lockerinfo isOpen={visible} close={handleCloseInfoModal}  data={curLocker}/>
+            <Lockerinfo isOpen={visible} close={handleCloseInfoModal} data={curLocker}/>
         </div>
     );
 }

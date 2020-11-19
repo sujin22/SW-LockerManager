@@ -73,6 +73,12 @@ const UserDB = () => {
         console.log(`Error setting user/${userID} document`, err);
       }, { merge: true })
   }
+  // 유저 데이터 초기화하기(락커만 없애기)
+  const initUserData = (userID, onCompleted = () => console.log(`Data[${userID}] init`)) => {
+    db.collection('user').doc(userID).update({
+      locker: firebase.firestore.FieldValue.delete()
+    }).then(onCompleted);
+  }
 
   // 유저 데이터 삭제하기
   // userID는 학번(string)
@@ -87,7 +93,7 @@ const UserDB = () => {
   }
   
 
-  return { getUserData, setUserData, removeUserData }
+  return { getUserData, setUserData, initUserData, removeUserData }
 }
 
 
@@ -247,7 +253,6 @@ const LockerDB = () => {
     db.collection(`area/${area}/locker`).where('number', '==', lockerData.number).get()
       .then((snapshot) => {
         if(snapshot.docs.length > 0) {
-          console.log(lockerData);
           snapshot.docs[0].ref.update({
             user: firebase.firestore.FieldValue.delete()
           }).then(onCompleted);
