@@ -25,7 +25,10 @@ const LockerContainer = ({ lockers }) => {
             if(locker.user){
                 alert("사용중인 사물함입니다!");
                 return;
-
+            }
+            if(!locker.able){
+                alert("사용불가능한 사물함입니다!");
+                return;
             }
             //선택되지 않은 사물함
             else{
