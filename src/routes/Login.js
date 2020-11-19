@@ -59,7 +59,7 @@ class Login extends React.Component {
                 <header className="Login-header">
                     <img src={logo} className="Login-logo" alt="logo" />
                     <p>
-                    Login
+                    세종대학교 소프트웨어학과 사물함 배정 사이트
                     </p>
                   <input
                     name="id"

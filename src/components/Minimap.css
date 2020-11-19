@@ -6,9 +6,11 @@
     /* 표 화면에서 가운데정렬 */
 }
 
-td{
+.minimap td{
     border-radius: 5px;
 }
+
+
 .invisible{
     border: 0;
     height: 10px;
