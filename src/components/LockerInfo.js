@@ -10,6 +10,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
     const [edit ,setEdit ] = useState(false);
     useEffect(() => {
       console.log('edit changed!')
+      {setnewAble(able)}
       if(user)
         setnewUserId(user.id);
       else
@@ -55,6 +56,18 @@ const Lockerinfo = ({ isOpen, close, data }) => {
     setnewUserId(newValue);
   }
   const sumitHandler =()=>{
+
+    //새로운 정보 전송
+    if(edit){
+      //유저 바뀔시 등록 1.유저가 없는데 입력값이 생긴경우 2. 유저값이 있고 바뀐경우
+      if(!user && newUserId){
+        if(newUserId.length>1){
+        }
+      }else if( newUserId ){
+        if(user.id != newUserId){          
+        }
+      }
+    }
     setEdit(false);
     close();
 }
@@ -96,7 +109,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
                         label="사용 가능 유무"
                         onChange={checkboxHandelr}                       
                     ></input>
-                    <text  className="ableCb">  사물함 고장 유무</text>
+                    <text  className="ableCb">  사물함 사용 가능</text>
                </div>     
               </React.Fragment>
               :
