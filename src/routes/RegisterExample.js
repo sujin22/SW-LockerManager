@@ -31,6 +31,8 @@ const RegisterExample = () => {
     const newList = signupList;
     const idx = newList.findIndex((item) => item.id === id);
     const data = newList.splice(idx, 1);
+    delete data[0].datetime;
+    console.log(data[0])
     UserDB().setUserData(data[0], () => {
       alert(id+"의 가입이 완료되었습니다!");
       RegisterDB().removeRegisterData(id, () => {

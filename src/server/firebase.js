@@ -241,7 +241,7 @@ const LockerDB = () => {
   // 사물함 데이터 리스너 등록하기
   const addLockerDataListener = (area, onChanged = (change) => console.log(change.doc.data())) => {
     if (!lockerDataListener) {
-      console.log('Listeners already added!');
+      console.log('Listener already added!');
       return;
     }
     const listener = db.collection(`area/${area}/locker`).onSnapshot(
@@ -257,11 +257,12 @@ const LockerDB = () => {
   // 사물함 데이터 리스너 등록 해제하기
   const removeLockerDataListener = () => {
     if (!lockerDataListener) {
-      console.log('Listeners already empty!')
+      console.log('Listener already empty!');
+      return;
     }
     lockerDataListener();
     lockerDataListener = undefined;
-    console.log('Listeners removed!')
+    console.log('Listener removed!')
   }
 
   return { getLockerData, addLockerData, setLockerData, addLockerDataListener, removeLockerDataListener }

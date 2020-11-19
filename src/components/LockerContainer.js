@@ -17,7 +17,7 @@ const LockerContainer = ({ lockers }) => {
     const handleCloseInfoModal = () =>{        
         setVisible(false);
     }
-    
+
     const openInfoHandler = (locker) => {        
         //사용자일경우 신청
         if(!auth().isAdmin()){
@@ -40,6 +40,7 @@ const LockerContainer = ({ lockers }) => {
                             number: locker.number
                         }
                     }
+                    console.log("newUserData", newUserData);
                     UserDB().setUserData(newUserData, () => {
                         alert("신청이 완료되었습니다!");
                         auth().setUserData(newUserData);
