@@ -70,7 +70,7 @@ const LockerContainer = ({ lockers }) => {
 
     return(
         <div className="locker_border"
-            style={{width:50*(locker_col+1)}}>
+            style={{width:52*(locker_col+1)}}>
             {
                 lockers.map((locker) => {
                 
