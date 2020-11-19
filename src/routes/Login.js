@@ -64,7 +64,7 @@ class Login extends React.Component {
                   <input
                     name="id"
                     className="loginId"
-                    input type="text"
+                    type="text"
                     placeholder="학번"
                     value={id}
                     onChange={this.loginNumHandler}

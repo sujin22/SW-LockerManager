@@ -9,29 +9,30 @@ import Main from './routes/Main';
 import auth from './server/auth';
 
 function App() {
-	const [user, setUser] = useState();
+	const [user, setUser] = useState(undefined);
 
 	let router;
-	const navigate = (pageName) => {
+	const navigate = (pageName='') => {
 		router.history.push('/'+pageName);
 	}
-	
+
 	useEffect(() => {
 		auth().addListener((userData) => setUser(userData));
 	}, []);
 
 	useEffect(() => {
-		
 		if (user) {
-		navigate('main');
+			navigate('main');
+		} else {
+			navigate();
 		}
 	}, [user])
 
 	return(
 		<HashRouter ref={(r) => { router = r; }}>
-		<Route path="/" exact={true} component={Login}/>
-		<Route path="/main" component={Main} />
-		<Route path="/register" component={RegisterExample} />
+			<Route path="/" exact={true} component={Login}/>
+			<Route path="/main" component={Main} />
+			<Route path="/register" component={RegisterExample} />
 		</HashRouter>
 	);
 }
