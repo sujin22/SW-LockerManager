@@ -4,29 +4,92 @@ import Sidebar from '../components/Sidebar';
 import Minimap from '../components/Minimap';
 import auth from '../server/auth';
 import LockerContainer from './../components/LockerContainer';
+import { LockerDB } from '../server/firebase';
 
-
-  class Main extends Component{
+class Main extends Component{
     constructor(props){
         super(props);
         this.scrollToElement = this.scrollToElement.bind(this);
         this.isElementUnderBottom = this.isElementUnderBottom.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.setArea = this.setArea.bind(this);
         
         this.myRef = React.createRef();
         this.state = {
             isScrolled: false,
             selected_area: 'A',
-            selected_area_col: 10,
+            user: {},
+            lockers: [],
         }
+        this.auth = auth();
+        this.db = LockerDB();
     }
 
     componentDidMount() {
-        if(!auth().isLogin()) {
+        const { selected_area, lockers } = this.state;
+        if (!auth().isLogin()) {
             alert("로그인이 필요합니다!");
             this.props.history.goBack();
+            return;
+        } else {
+            this.setState({user: this.auth.getCurrentUser()})
         }
-        this.setState({selected_area:'A', selected_area_col: 10})
+        LockerDB().getLockerData(selected_area).then((data) => {
+            this.setState({lockers: data});
+        })
+        // 사물함 데이터 리스너 등록
+        this.db.addLockerDataListener(selected_area, (change) => {
+            const newLocker = {
+                area: selected_area,
+                ...change.doc.data()
+            };
+            const isExist = lockers.findIndex(locker => locker.number === newLocker.number) !== -1;
+            if (!change.doc.data() && isExist) {
+                console.log("Locker Data Updated at", newLocker.number);
+                const newLockerList = lockers.map(locker => (locker.number === newLocker.number) ? newLocker : locker);
+                this.setState({lockers: newLockerList});
+            }
+        })
+    }
+    
+    // 업데이트 되기전에 리스너 해제
+    shouldComponentUpdate(nextProps, nextState) {
+        const nextArea = nextState.selected_area;
+        const { selected_area } = this.state;
+        // 구역 선택 시
+        if (nextArea !== selected_area) {
+            console.log(nextArea, selected_area)
+            this.db.removeLockerDataListener();
+        }
+        return true;
+    }
+    componentDidUpdate(prevProps, prevState) {
+        const prevArea = prevState.selected_area;
+        const { selected_area, lockers } = this.state;
+        // 구역 선택 이후
+        if (prevArea !== selected_area) {
+            console.log("Area changed!");
+            // 사물함 데이터 처음 한번 호출
+            this.db.getLockerData(selected_area).then((data) => {
+                this.setState({lockers: data});
+            });
+            // 사물함 데이터 리스너 등록
+            this.db.addLockerDataListener(selected_area, (change) => {
+                const newLocker = {
+                    area: selected_area,
+                    ...change.doc.data()
+                };
+                const isExist = lockers.findIndex(locker => locker.number === newLocker.number) !== -1;
+                if (!change.doc.data() && isExist) {
+                    console.log("Locker Data Updated at", newLocker.number);
+                    const newLockerList = lockers.map(locker => (locker.number === newLocker.number) ? newLocker : locker);
+                    this.setState({lockers: newLockerList});
+                }
+            })
+        }
+    }
+    componentWillUnmount() {
+        this.db.removeLockerDataListener();
     }
 
     scrollToElement(){
@@ -59,17 +122,21 @@ import LockerContainer from './../components/LockerContainer';
         })
     }
 
-    selectArea(){
-        // this.setState({selected_area:'B'})
+    /*Minimap 클릭 시 state의 area, col 변경해주는 함수*/
+    setArea(_area){ 
+        this.setState({selected_area: _area});
     }
 
     render(){
         window.addEventListener('scroll', this.handleScroll);
-        const{selected_area, selected_area_col} = this.state;
+        const{user, lockers} = this.state;
+
+        console.log("@@@@"+user.id);
+    
         return(
             <div className="Main">
                 <div className="sidebar">
-                    <Sidebar />
+                    { Object.keys(user).length > 0 && <Sidebar admin={this.auth.isAdmin()} user={user}/> }
                 </div>
 
                 <div className="content">
@@ -99,7 +166,7 @@ import LockerContainer from './../components/LockerContainer';
                                     사물함을 선택하세요
                                 </p>
                                 <div className="up-on-scroll">
-                                    <Minimap/> 
+                                    <Minimap setArea={this.setArea}/> 
                                 </div>
                             </div>
                             
@@ -110,7 +177,7 @@ import LockerContainer from './../components/LockerContainer';
                                 </p>
                                 <div className="up-on-scroll">
                                     {
-                                        this.state.isScrolled && <LockerContainer area={selected_area} col={selected_area_col}/>
+                                        <LockerContainer lockers={lockers}/>
                                     }
                                 </div>
                             </div>

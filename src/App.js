@@ -6,32 +6,35 @@ import Login from './routes/Login';
 // import SignUpExample from './routes/SignUpExample';
 import RegisterExample from './routes/RegisterExample';
 import Main from './routes/Main';
+import MyPage from './components/MyPage';
 import auth from './server/auth';
 
 function App() {
-	const [user, setUser] = useState();
+	const [user, setUser] = useState(undefined);
 
 	let router;
-	const navigate = (pageName) => {
+	const navigate = (pageName='') => {
 		router.history.push('/'+pageName);
 	}
-	
+
 	useEffect(() => {
 		auth().addListener((userData) => setUser(userData));
 	}, []);
 
 	useEffect(() => {
-		
-		if (user) {
-		navigate('main');
+		if (!user) {
+			navigate();
+		} else {
+			navigate('main');
 		}
 	}, [user])
 
 	return(
 		<HashRouter ref={(r) => { router = r; }}>
-		<Route path="/" exact={true} component={Login}/>
-		<Route path="/main" component={Main} />
-		<Route path="/register" component={RegisterExample} />
+			<Route path="/" exact={true} component={Login}/>
+			<Route path="/main" exact={true} component={Main} />
+			<Route path="/main/mypage" component={MyPage} />
+			<Route path="/register" component={RegisterExample} />
 		</HashRouter>
 	);
 }

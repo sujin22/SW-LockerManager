@@ -100,7 +100,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
                         label="사용 가능 유무"
                         onChange={checkboxHandelr}                       
                     />
-                    <label htmlFor={newAble}>Label</label>
+                    <label htmlFor={newAble}>사용 가능 유무</label>
                  </div>
                      
               </React.Fragment>
@@ -110,10 +110,9 @@ const Lockerinfo = ({ isOpen, close, data }) => {
                 <p>이름 : {able}</p>
                 <p>학년 : {able}</p>
                 <div className="twobutton-wrap">
-                <button onClick={editHandler}>사물함 정보 수정</button> 
-          <button onClick={deleteHandler}>사용자 삭제</button> 
-                </div>
-              
+                  <button onClick={editHandler}>사물함 정보 수정</button> 
+                  <button onClick={deleteHandler}>사용자 삭제</button> 
+                </div>              
               </React.Fragment>
               }
                 
