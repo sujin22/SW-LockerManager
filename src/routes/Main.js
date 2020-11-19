@@ -18,15 +18,20 @@ import LockerContainer from './../components/LockerContainer';
         this.state = {
             isScrolled: false,
             selected_area: 'A',
+            user: {},
         }
+        this.auth = auth();
     }
 
     componentDidMount() {
         if(!auth().isLogin()) {
             alert("로그인이 필요합니다!");
             this.props.history.goBack();
+        }else{
+            this.setState({user: this.auth.getCurrentUser()})
         }
-        this.setState({selected_area:'A'})
+
+        this.setState({selected_area:'A'});
     }
 
     scrollToElement(){
@@ -66,7 +71,10 @@ import LockerContainer from './../components/LockerContainer';
 
     render(){
         window.addEventListener('scroll', this.handleScroll);
-        const{selected_area, selected_area_col} = this.state;
+        const{user, selected_area} = this.state;
+
+        console.log("@@@@"+user.id);
+    
         return(
             <div className="Main">
                 <div className="sidebar">
@@ -111,7 +119,7 @@ import LockerContainer from './../components/LockerContainer';
                                 </p>
                                 <div className="up-on-scroll">
                                     {
-                                        <LockerContainer area={selected_area}/>
+                                        <LockerContainer area={selected_area} user_id={user.id}/>
                                     }
                                 </div>
                             </div>

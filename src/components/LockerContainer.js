@@ -4,9 +4,9 @@ import { LockerDB } from '../server/firebase';
 import Locker from './Locker';
 import Lockerinfo from './LockerInfo.js';
 
-// function Locker({id, row, col}){
-const LockerContainer = ({ area }) => {
+const LockerContainer = ({area, user_id}) => {
     const [lockerList, setLockerList] = useState([]);
+
     useEffect(() => {
         console.log("LockerContainer Created!");
         LockerDB().getLockerData(area).then((data) => {
@@ -17,6 +17,7 @@ const LockerContainer = ({ area }) => {
     const [ visible, setVisible] = useState(false);
     const [ curLocker, setcurLocker] = useState([]);
 
+    
     const handleOpenInfoModal = () =>{
         setVisible(true);
     }
@@ -44,6 +45,7 @@ const LockerContainer = ({ area }) => {
         }            
     }; 
 
+    //선택된 area에 맞게 col 개수 리턴
     const getLockerCol = (_area) =>{
         if(_area ==='A'||_area ==='B'){
             return 10;
@@ -51,10 +53,26 @@ const LockerContainer = ({ area }) => {
             return 6;
         }
     }
-    console.log(area + " area");
 
+    //lockerlist가 undefined 아니면, area에 따른 col값 가져옴
     const locker_col = (lockerList.length!= 0)? getLockerCol(lockerList[0].area) : 10;
     
+    // const findUserLocker = () =>{
+        
+    //     var i = 0;
+    //     while(i<lockerList.length){
+    //         if(lockerList[i].user_id === user_id){
+                
+    //             console.log("현재 id는 "+user_id);
+    //             console.log("id는 "+lockerList[i].user_id);
+    //             console.log("area는 "+lockerList[i].area);
+    //             console.log("number는 "+lockerList[i].number);
+    //             return lockerList[i];
+    //         }
+    //     }
+    //     return "일치 항목 없음";
+    // }
+
     return(
         <div className="locker_border"
             style={{width:50*(locker_col+1)}}>

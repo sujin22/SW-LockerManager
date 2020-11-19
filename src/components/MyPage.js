@@ -3,8 +3,7 @@ import './MyPage.css'
 import Sidebar from './Sidebar';
 import img_mypage from '../img_mypage.jpg'
 
-function MyPage(props){
-    console.log(props);
+function MyPage(){
     return (
         <div className="Mypage">
             <div className="sidebar">
@@ -19,16 +18,10 @@ function MyPage(props){
                     <td className="mypage_lockerinfo">
 
                         <span className="user_info">16011144</span>님의 사물함은,<br/><br/>
-                        대양AI센터 B1 사물함 복도의<br/>
-                        <span className="user_info">A - 24</span> 입니다.
+                        대양AI센터 B1 사물함 복도의 <span className="user_info">A - 24</span> 입니다.
 
                     </td>
                 </table>
-                {/* <span className="mypage_lockerinfo">
-                    <span className="user_info">16011144</span>님의 사물함은,<br/><br/>
-                    대양AI센터 B1 사물함 복도의<br/>
-                    <span className="user_info">A - 24</span> 입니다.
-                </span> */}
             </div>
         </div>
     );

@@ -51,6 +51,7 @@ class Sidebar extends Component {
             <div className="sidebar_contents">
                 <div className="user_info">
                     {user.name}님, 안녕하세요.
+                    
                 </div>
 
                 <div className="buttons">
@@ -75,7 +76,6 @@ class Sidebar extends Component {
 
     render(){
         const { user, isSidebarExpanded } = this.state;
-    
         return(
             <div>
                 {isSidebarExpanded && this.sidebarExpanded(user)}
