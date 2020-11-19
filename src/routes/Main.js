@@ -175,10 +175,20 @@ class Main extends Component{
                                 <p className="locker_title up-on-scroll">
                                     이용하고 싶은 칸을 선택하세요
                                 </p>
-                                <div className="up-on-scroll">
-                                    {
-                                        <LockerContainer lockers={lockers}/>
-                                    }
+                                
+                                <div className="up-on-scroll" >
+                                {
+                                    <LockerContainer lockers={lockers}/>
+                                }
+                                </div>
+                                <div className="locker_guideline up-on-scroll">
+                                    <tr></tr>
+                                    <tr>
+                                        <td style={{width:15,backgroundColor:'blue'}}></td>
+                                        <td style={{fontSize:15}}>: 사용 중 &nbsp;</td>
+                                        <td style={{width:15,backgroundColor:'gray'}}></td>
+                                        <td style={{fontSize:15}}>: 고장  </td>
+                                    </tr>
                                 </div>
                             </div>
                         </div>

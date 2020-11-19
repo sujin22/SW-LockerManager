@@ -51,6 +51,11 @@
     margin-bottom: 10vh;
   }
 
+  .locker_guideline{
+    /* padding: 10px; */
+    display: inline
+  }
+
   .up-on-scroll{
     transition: transform 0.7s, opacity 1s;
   }
