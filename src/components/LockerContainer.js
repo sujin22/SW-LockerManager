@@ -21,6 +21,14 @@ const LockerContainer = ({ lockers }) => {
     const openInfoHandler = (locker) => {        
         //사용자일경우 신청
         if(!auth().isAdmin()){
+            //이미 선택된 사물함
+            if(locker.user){
+                alert("사용중인 사물함입니다!");
+                return;
+
+            }
+            //선택되지 않은 사물함
+            else{
             const isConfirmed = window.confirm(`사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
             if (isConfirmed) {
                 const user = auth().getCurrentUser();
@@ -48,7 +56,9 @@ const LockerContainer = ({ lockers }) => {
                 })
             }
             return;
-        }       
+            }
+            
+        }      
         
          //관리자일 경우 정보열람
         if(!visible){
