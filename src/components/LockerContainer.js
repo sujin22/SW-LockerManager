@@ -5,14 +5,14 @@ import Locker from './Locker';
 import Lockerinfo from './LockerInfo.js';
 
 // function Locker({id, row, col}){
-const LockerContainer = ({ area, col }) => {
+const LockerContainer = ({ area }) => {
     const [lockerList, setLockerList] = useState([]);
     useEffect(() => {
         console.log("LockerContainer Created!");
         LockerDB().getLockerData(area).then((data) => {
             setLockerList(data);
         })
-    }, [])
+    }, [area])
 
     const [ visible, setVisible] = useState(false);
     const [ curLocker, setcurLocker] = useState([]);
@@ -44,14 +44,23 @@ const LockerContainer = ({ area, col }) => {
         }            
     }; 
 
+    const getLockerCol = (_area) =>{
+        if(_area ==='A'||_area ==='B'){
+            return 10;
+        }else if(_area ==='C'||_area ==='D'||_area ==='E'){
+            return 6;
+        }
+    }
+    console.log(area + " area");
+
+    const locker_col = (lockerList.length!= 0)? getLockerCol(lockerList[0].area) : 10;
+    
     return(
         <div className="locker_border"
-            style={{width:50*(col+1)}}>
+            style={{width:50*(locker_col+1)}}>
             {
                 lockerList.map((locker) => {
-                //console.log(locker)
-                //console.log(col)
-
+                
                 return (
                     <Locker key={locker.number} data={locker} handler={() => openInfoHandler(locker)} /> )             
                 })                

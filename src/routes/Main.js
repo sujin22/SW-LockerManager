@@ -12,12 +12,12 @@ import LockerContainer from './../components/LockerContainer';
         this.scrollToElement = this.scrollToElement.bind(this);
         this.isElementUnderBottom = this.isElementUnderBottom.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.setArea = this.setArea.bind(this);
         
         this.myRef = React.createRef();
         this.state = {
             isScrolled: false,
             selected_area: 'A',
-            selected_area_col: 10,
         }
     }
 
@@ -26,7 +26,7 @@ import LockerContainer from './../components/LockerContainer';
             alert("로그인이 필요합니다!");
             this.props.history.goBack();
         }
-        this.setState({selected_area:'A', selected_area_col: 10})
+        this.setState({selected_area:'A'})
     }
 
     scrollToElement(){
@@ -59,8 +59,15 @@ import LockerContainer from './../components/LockerContainer';
         })
     }
 
-    selectArea(){
-        // this.setState({selected_area:'B'})
+    /*Minimap 클릭 시 state의 area, col 변경해주는 함수*/
+    setArea(_area){
+        // console.log(_area + " area is Clicked!");
+        
+        this.setState({selected_area: _area});
+        
+        // console.log("now this.state.selected_area is "+this.state.selected_area);
+        // console.log("now this.state.selected_area_col is "+this.state.selected_area_col);
+
     }
 
     render(){
@@ -99,7 +106,7 @@ import LockerContainer from './../components/LockerContainer';
                                     사물함을 선택하세요
                                 </p>
                                 <div className="up-on-scroll">
-                                    <Minimap/> 
+                                    <Minimap setArea={this.setArea}/> 
                                 </div>
                             </div>
                             
@@ -110,7 +117,7 @@ import LockerContainer from './../components/LockerContainer';
                                 </p>
                                 <div className="up-on-scroll">
                                     {
-                                        this.state.isScrolled && <LockerContainer area={selected_area} col={selected_area_col}/>
+                                        <LockerContainer area={selected_area}/>
                                     }
                                 </div>
                             </div>
