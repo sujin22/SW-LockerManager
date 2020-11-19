@@ -6,6 +6,7 @@ import Login from './routes/Login';
 // import SignUpExample from './routes/SignUpExample';
 import RegisterExample from './routes/RegisterExample';
 import Main from './routes/Main';
+import MyPage from './components/MyPage';
 import auth from './server/auth';
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
 	return(
 		<HashRouter ref={(r) => { router = r; }}>
 			<Route path="/" exact={true} component={Login}/>
-			<Route path="/main" component={Main} />
+			<Route path="/main" exact={true} component={Main} />
+			<Route path="/main/mypage" component={MyPage} />
 			<Route path="/register" component={RegisterExample} />
 		</HashRouter>
 	);

@@ -63,8 +63,8 @@ class Sidebar extends Component {
                 </div>            
 
                 <div className="nav">
-                    <Link to="/">내 사물함 정보</Link>
-                    <Link to="/">사물함 배정</Link>
+                    <Link to="/main">사물함 배정받기</Link>
+                    <Link to="/main/mypage">내 사물함 정보</Link>
                     <Link to="/">회원가입신청관리</Link>
                 </div>
 

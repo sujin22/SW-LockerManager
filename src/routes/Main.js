@@ -60,14 +60,8 @@ import LockerContainer from './../components/LockerContainer';
     }
 
     /*Minimap 클릭 시 state의 area, col 변경해주는 함수*/
-    setArea(_area){
-        // console.log(_area + " area is Clicked!");
-        
+    setArea(_area){ 
         this.setState({selected_area: _area});
-        
-        // console.log("now this.state.selected_area is "+this.state.selected_area);
-        // console.log("now this.state.selected_area_col is "+this.state.selected_area_col);
-
     }
 
     render(){
