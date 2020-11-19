@@ -7,7 +7,7 @@ import auth from './../server/auth';
 
 const LockerContainer = ({ lockers }) => {
     const [ visible, setVisible] = useState(false);
-    const [ curLocker, setcurLocker] = useState([]);
+    const [ curLocker, setcurLocker] = useState({});
 
     console.log("LockerContainer Render!");
 
@@ -70,7 +70,7 @@ const LockerContainer = ({ lockers }) => {
 
     return(
         <div className="locker_border"
-            style={{width:50*(locker_col+1)}}>
+            style={{width:52*(locker_col+1)}}>
             {
                 lockers.map((locker) => {
                 
