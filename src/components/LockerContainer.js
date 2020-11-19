@@ -25,24 +25,24 @@ const LockerContainer = ({ lockers }) => {
             if (isConfirmed) {
                 const user = auth().getCurrentUser();
                 const newLockerData = {
-                    ...locker,
                     user: {
                         id: user.id,
                         name: user.name,
                         phone: user.phone
-                    }
+                    },
+                    ...locker
                 }
                 LockerDB().setLockerData(newLockerData, () => {
                     const newUserData = {
-                        ...user,
                         locker: {
                             area: locker.area,
                             number: locker.number
-                        }
+                        },
+                        ...user,
                     }
-                    console.log("newUserData", newUserData);
                     UserDB().setUserData(newUserData, () => {
                         alert("신청이 완료되었습니다!");
+                        newUserData.id = user.id;
                         auth().setUserData(newUserData);
                     })
                 })
