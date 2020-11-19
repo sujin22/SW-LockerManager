@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './MyPage.css'
 import Sidebar from './Sidebar';
-import img_mypage from '../img_mypage.jpg'
+import img_mypage from '../assets/imgs/img_mypage.jpg'
 import auth from './../server/auth';
 
 function MyPage(){

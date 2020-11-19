@@ -23,8 +23,11 @@ class Main extends Component{
         }
         this.auth = auth();
         this.db = LockerDB();
+
+        
     }
 
+    
     componentDidMount() {
         const { selected_area, lockers } = this.state;
         if (!auth().isLogin()) {
@@ -141,9 +144,11 @@ class Main extends Component{
                 <div className="content">
                     <div className="intro background-change-wrap">
                         <div className="intro_wrapper" >
-                            <p className="intro_title">
-                            Sejong Software<br/>Locker
-                            </p>
+                            <div className="intro_title">
+                                <div>
+                                    Sejong;<br/> Software;<br/>Locker Service;
+                                </div>
+                            </div>
                             <p className="intro_content">
                             소프트웨어학과 학우 여러분을 위한 사물함이 준비되어있습니다.
                             </p>

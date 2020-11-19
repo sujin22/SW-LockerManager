@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Noto+Serif+KR&family=PT+Mono&display=swap');
+  
+/* 
+font-family: 'Noto Sans KR', sans-serif;
+font-family: 'Noto Serif KR', serif;
+font-family: 'PT Mono', monospace;
+*/
+
+
   .Main {
     margin-top: 0px;
 
@@ -38,13 +47,17 @@
   }
 
   .assignment_title{
-    font-weight: bold;
+    font-weight: 500;
     font-size: 48px;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   .minimap_title, .locker_title{
     color: #1D4E89;
     font-size: 18px;
+
+    font-weight: 300;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   .assignment_minimap, .assignment_locker{
@@ -53,7 +66,11 @@
 
   .locker_guideline{
     /* padding: 10px; */
-    display: inline
+    display: inline;
+  }
+  .locker_guideline td{
+
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   .up-on-scroll{
@@ -68,7 +85,8 @@
     width: 100%;
     height: 100vh;
 
-    text-align: center;
+    align-items: center;
+
   }
   .intro_wrapper{
     display: table-cell;
@@ -76,14 +94,29 @@
   }
 
   .intro_title{
+    margin: auto;
     font-weight: bold;
     font-size: 48px;
+    font-family: 'PT Mono', monospace;
+    display:  flex;
+  }
+  .intro_title div{
+    margin: auto;
+    font-weight: bold;
+    
+    display:  inline;
   }
 
   .intro_content{
+    text-align: center;
     font-size: 18px;
+
+    font-family: 'Noto Sans KR', sans-serif;
   }
   .intro_btn{
+    display: flex;
+    margin: auto;
+
     background-color: #282c34;
     color: white;
     font-size: 18px;

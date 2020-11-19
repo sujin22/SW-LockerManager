@@ -1,6 +1,6 @@
 import React from 'react';
 import './Login.css';
-import logo from '../sw_logo.png';
+import logo from '../assets/imgs/sw_logo.png';
 import auth from '../server/auth';
 import Signup from '../components/Signup.js';
 // import Modal from 'react-modal';
