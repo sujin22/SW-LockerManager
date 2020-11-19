@@ -6,6 +6,14 @@
   right: 0;
   background-color: rgba(0,0,0,0.16);
 }
+.Modal-clearoverlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0);
+}
 .Modal{
   position: fixed;
   top: 50%;
@@ -35,6 +43,31 @@
       font-size: 12pt;
       color: #999;
       text-align: left;
+    }
+  }
+  
+  .twobutton-wrap{
+    flex: 1;
+    flex-direction: column;
+    button{
+      flex: 1;
+      padding: 12px;
+      border-radius:10px ;
+      margin:0 5px 0 0;
+      background-color: #ad7cef;
+      font-size: 10pt;
+      color: white;
+      border: 0;
+      cursor: pointer;
+      &:hover{
+        background-color: #7f49c8;
+      }
+      &:active{
+        background-color: #7e49c8;
+      }
+      &:disabled {
+        background-color: #999;
+      }
     }
   }
 

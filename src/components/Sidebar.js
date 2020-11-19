@@ -7,20 +7,18 @@ import icon_collapsed from '../icon_collapsed.png';
 import icon_logout from '../icon_logout.png';
 import auth from './../server/auth';
 
+// props -> admin(bool), user(Object)
 class Sidebar extends Component {
     constructor() {
         super();
         this.state ={
-            user: {},
             isSidebarExpanded: false
         };
         this.auth = auth();
     }
 
     componentDidMount = () => {
-        if (this.auth.isLogin()) {
-            this.setState({user: this.auth.getCurrentUser()})
-        }
+        
     }
     
 
@@ -51,6 +49,7 @@ class Sidebar extends Component {
             <div className="sidebar_contents">
                 <div className="user_info">
                     {user.name}님, 안녕하세요.
+                    
                 </div>
 
                 <div className="buttons">
@@ -63,9 +62,9 @@ class Sidebar extends Component {
                 </div>            
 
                 <div className="nav">
-                    <Link to="/">내 사물함 정보</Link>
-                    <Link to="/">사물함 배정</Link>
-                    <Link to="/">회원가입신청관리</Link>
+                    <Link to="/main">사물함 배정받기</Link>
+                    <Link to="/main/mypage" params={{ user: {user}}}>내 사물함 정보</Link>
+                    <Link to="/register">회원가입신청관리</Link>
                 </div>
 
             </div>
@@ -74,8 +73,8 @@ class Sidebar extends Component {
     );
 
     render(){
-        const { user, isSidebarExpanded } = this.state;
-    
+        const { admin, user } = this.props;
+        const { isSidebarExpanded } = this.state;
         return(
             <div>
                 {isSidebarExpanded && this.sidebarExpanded(user)}

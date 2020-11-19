@@ -6,12 +6,26 @@ import { LockerDB } from '../server/firebase';
 const Locker = ({ data , handler}) => {
     const { area, number, able, user } = data;
 
-    return(
-        <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'white', backgroundColor: able? "blue" : "gray", transition: "background-color 1s"}}
-        onClick={handler}>
-          {area}<br />{number}
-        </div>
-    );
+    //available
+    if(user===undefined){
+        return(
+            <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'black', backgroundColor: able? "white" : "gray",transition: "background-color 1s", border:"1px solid gray"}}
+            onClick={handler}>
+              {area}<br />{number}
+            </div>
+        );
+    }
+
+    //occupied(blue) / broken(gray)
+    else{
+        return(
+            <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'white', backgroundColor: able? "blue" : "gray", transition: "background-color 1s", border:"1px solid gray"}}
+            onClick={handler}>
+              {area}<br />{number}
+            </div>
+        );
+    }
+    
 }
 Locker.propTypes = {
     data: Proptypes.shape({

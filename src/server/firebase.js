@@ -59,12 +59,12 @@ const UserDB = () => {
   // 유저 데이터 설정하기 (id가 new면 추가)
   // userData는 Object{id, name, password, phone}
   // onCompleted는 설정 완료 콜백 함수
-  const setUserData = async (userData, onCompleted = () => console.log(`Data[${userData.id}] updated`)) => {
+  const setUserData = (userData, onCompleted = () => console.log(`Data[${userData.id}] updated`)) => {
     if (userData.id === '' || userData.password === '' || userData.phone === '') {
       alert("입력 양식을 확인해주세요");
       return;
     }
-    if (await getUserData(userData.id))  { console.log("Already exist. It will modified.") }
+    // if (await getUserData(userData.id))  { console.log("Already exist. It will modified.") }
     const userID = userData.id;
     delete userData.id;
     db.collection('user').doc(userID).set(userData)
@@ -237,43 +237,32 @@ const LockerDB = () => {
       })
   }
 
-  let lockerDataListener = {};
+  let lockerDataListener = undefined;
   // 사물함 데이터 리스너 등록하기
-  const addLockerDataListener = (onChange = (snapshot) => snapshot.docChanges().forEach((change) => console.log(change.doc.data()))) => {
-    if (Object.keys(lockerDataListener).length !== 0) {
-      console.log('Listeners already added!');
+  const addLockerDataListener = (area, onChanged = (change) => console.log(change.doc.data())) => {
+    if (!lockerDataListener) {
+      console.log('Listener already added!');
       return;
     }
-    const listener_A = db.collection('area/A/locker').onSnapshot(onChange, (err) => {
-      console.error(err);
-    })
-    const listener_B = db.collection('area/B/locker').onSnapshot(onChange, (err) => {
-      console.error(err);
-    })
-    const listener_C = db.collection('area/C/locker').onSnapshot(onChange, (err) => {
-      console.error(err);
-    })
-    const listener_D = db.collection('area/D/locker').onSnapshot(onChange, (err) => {
-      console.error(err);
-    })
-    const listener_E = db.collection('area/E/locker').onSnapshot(onChange, (err) => {
-      console.error(err);
-    })
-    lockerDataListener = { listener_A, listener_B, listener_C, listener_D, listener_E }
+    const listener = db.collection(`area/${area}/locker`).onSnapshot(
+      snapshot => {
+        snapshot.docChanges().forEach(onChanged);
+      },
+      err => {
+        console.error(err);
+      })
+    lockerDataListener = listener;
     console.log('Listener added!')
   }
   // 사물함 데이터 리스너 등록 해제하기
   const removeLockerDataListener = () => {
-    if (Object.keys(lockerDataListener).length === 0) {
-      console.log('Listeners already empty!')
+    if (!lockerDataListener) {
+      console.log('Listener already empty!');
+      return;
     }
-    lockerDataListener.listener_A();
-    lockerDataListener.listener_B();
-    lockerDataListener.listener_C();
-    lockerDataListener.listener_D();
-    lockerDataListener.listener_E();
-    lockerDataListener = {};
-    console.log('Listeners removed!')
+    lockerDataListener();
+    lockerDataListener = undefined;
+    console.log('Listener removed!')
   }
 
   return { getLockerData, addLockerData, setLockerData, addLockerDataListener, removeLockerDataListener }

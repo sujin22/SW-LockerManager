@@ -4,12 +4,13 @@ import {HashRouter, Route} from 'react-router-dom';
 import Login from './routes/Login';
 // import MainExample from './routes/MainExample';
 // import SignUpExample from './routes/SignUpExample';
-import RegisterExample from './routes/RegisterExample';
+import Register from './routes/UserManage';
 import Main from './routes/Main';
+import MyPage from './components/MyPage';
 import auth from './server/auth';
 
 function App() {
-	const [user, setUser] = useState(undefined);
+	const [user, setUser] = useState(auth().getCurrentUser());
 
 	let router;
 	const navigate = (pageName='') => {
@@ -28,11 +29,13 @@ function App() {
 		}
 	}, [user])
 
+	console.log("User in App", user);
 	return(
 		<HashRouter ref={(r) => { router = r; }}>
 			<Route path="/" exact={true} component={Login}/>
-			<Route path="/main" component={Main} />
-			<Route path="/register" component={RegisterExample} />
+			<Route path="/main" exact={true} render={(props)=> <Main {...props} user={user}/>} />
+			<Route path="/main/mypage" render={(props)=> <MyPage {...props} user={user}/>} />
+			<Route path="/register" render={(props)=> <Register {...props} user={user}/>} />
 		</HashRouter>
 	);
 }
