@@ -5,6 +5,7 @@ import Minimap from '../components/Minimap';
 import auth from '../server/auth';
 import LockerContainer from './../components/LockerContainer';
 import { LockerDB } from '../server/firebase';
+import Loading from './../components/Loading';
 
 class Main extends Component{
     constructor(props){
@@ -13,6 +14,8 @@ class Main extends Component{
         this.isElementUnderBottom = this.isElementUnderBottom.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.setArea = this.setArea.bind(this);
+        this.startLoading = this.startLoading.bind(this);
+        this.stopLoading = this.stopLoading.bind(this);
         
         this.myRef = React.createRef();
         this.state = {
@@ -20,13 +23,15 @@ class Main extends Component{
             selected_area: 'A',
             user: this.props.user,
             lockers: [],
+            newLocker: {},
+            loading: false,
         }
         this.auth = auth();
         this.db = LockerDB();
     }
 
     componentDidMount() {
-        const { selected_area, lockers } = this.state;
+        const { selected_area } = this.state;
         if (!auth().isLogin()) {
             alert("로그인이 필요합니다!");
             this.props.history.goBack();
@@ -37,15 +42,14 @@ class Main extends Component{
         })
         // 사물함 데이터 리스너 등록
         this.db.addLockerDataListener(selected_area, (change) => {
+            if (change.type === "added") { return; }
             const newLocker = {
                 area: selected_area,
                 ...change.doc.data()
             };
-            const isExist = lockers.findIndex(locker => locker.number === newLocker.number) !== -1;
-            if (!change.doc.data() && isExist) {
+            if (change.doc.data()) {
                 console.log("Locker Data Updated at", newLocker.number);
-                const newLockerList = lockers.map(locker => (locker.number === newLocker.number) ? newLocker : locker);
-                this.setState({lockers: newLockerList});
+                this.setState({ newLocker });
             }
         })
     }
@@ -63,7 +67,8 @@ class Main extends Component{
     }
     componentDidUpdate(prevProps, prevState) {
         const prevArea = prevState.selected_area;
-        const { selected_area, lockers } = this.state;
+        const prevLocker = prevState.newLocker;
+        const { selected_area, lockers, newLocker } = this.state;
         // 구역 선택 이후
         if (prevArea !== selected_area) {
             console.log("Area changed!");
@@ -73,17 +78,20 @@ class Main extends Component{
             });
             // 사물함 데이터 리스너 등록
             this.db.addLockerDataListener(selected_area, (change) => {
+                if (change.type === "added") { return; }
                 const newLocker = {
                     area: selected_area,
                     ...change.doc.data()
                 };
-                const isExist = lockers.findIndex(locker => locker.number === newLocker.number) !== -1;
-                if (!change.doc.data() && isExist) {
+                if (change.doc.data()) {
                     console.log("Locker Data Updated at", newLocker.number);
-                    const newLockerList = lockers.map(locker => (locker.number === newLocker.number) ? newLocker : locker);
-                    this.setState({lockers: newLockerList});
+                    this.setState({newLocker});
                 }
             })
+        }
+        if (prevLocker !== newLocker) {
+            const newLockerList = lockers.map(locker => (locker.number === newLocker.number) ? newLocker : locker);
+            this.setState({lockers: newLockerList})
         }
     }
     componentWillUnmount() {
@@ -124,13 +132,21 @@ class Main extends Component{
     setArea(_area){ 
         this.setState({selected_area: _area});
     }
+    
+    // 디비 관련 작업 때 로딩 팝업 핸들러
+    startLoading() {
+        this.setState({loading: true});
+    }
+    stopLoading() {
+        this.setState({loading: false});
+    }
 
     render(){
         window.addEventListener('scroll', this.handleScroll);
-        const{lockers} = this.state;
+        const { lockers, loading } = this.state;
         const { user } = this.props;
 
-        console.log("User in Main", user);
+        //console.log("User in Main", user);
     
         return(
             <div className="Main">
@@ -185,7 +201,12 @@ class Main extends Component{
                                 </div>
                                 <div className="up-on-scroll" >
                                 {
-                                    <LockerContainer lockers={lockers}/>
+                                    <LockerContainer 
+                                        user={user} 
+                                        lockers={lockers} 
+                                        startLoading={this.startLoading}
+                                        stopLoading={this.stopLoading}
+                                    />
                                 }
                                 </div>
                                 
@@ -194,7 +215,9 @@ class Main extends Component{
                     </div>
                     
                 </div>
+                { loading && <Loading /> }
             </div>
+            
         );
     }
 }

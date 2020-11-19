@@ -33,7 +33,9 @@ const UserManage = ({user}) => {
       <ul className="list-group">
         {data.userList.map((data) => (
           <li>
-            <span>{data.id}</span>
+            <span className="idtext">{data.id}</span>
+            <span className="nametext">{data.name}</span>
+            <span className="phtext">{data.phone}</span>
             <button
               key={data.id}
               id="unregister"
@@ -52,7 +54,9 @@ const UserManage = ({user}) => {
       <ul className="list-group">
         {data.registerList.map((data) => (
           <li>
-            <span>{data.id}</span>
+           <span className="idtext">{data.id}</span>
+            <span className="nametext">{data.name}</span>
+            <span className="phtext">{data.phone}</span>
             <button
               key={data.id}
               id="register"
@@ -106,14 +110,26 @@ const UserManage = ({user}) => {
       <div className="sidebar">
         { user && <Sidebar admin={auth().isAdmin()} user={user}/> }
       </div>
-      <div className="content-manage">
-        <div className="list-container">
-          { renderUserList() }
+      <div className="manage-container">
+        <div className="title-manege"> 
+        <div className="titletxt-manege">회원 관리 페이지</div>
         </div>
-        <div className="list-container">
-          { renderRegisterList() }
+        <div className="content-manage">
+          <div className="content-container">
+            <div className="list-title">회원 목록</div>
+            <div className="list-container">
+            { renderUserList() }
+            </div>          
+          </div>
+          <div className="content-container">
+          <div className="list-title">신청 목록</div>
+            <div className="list-container">
+              { renderRegisterList() }
+            </div>
+          </div>
         </div>
       </div>
+      
     </div>
   )
 }

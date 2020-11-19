@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 import { UserDB, LockerDB } from '../server/firebase';
 import Locker from './Locker';
 import Lockerinfo from './LockerInfo.js';
 import auth from './../server/auth';
 
-const LockerContainer = ({ lockers }) => {
+const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
     const [ visible, setVisible] = useState(false);
     const [ curLocker, setcurLocker] = useState({});
-
-    console.log("LockerContainer Render!");
 
     const handleOpenInfoModal = () =>{
         setVisible(true);
@@ -22,52 +20,64 @@ const LockerContainer = ({ lockers }) => {
         //사용자일경우 신청
         if(!auth().isAdmin()){
             //이미 선택된 사물함
-            if(locker.user){
-                alert("사용중인 사물함입니다!");
+            if(!locker.able){
+                alert("사용이 불가능한 사물함입니다!");
                 return;
             }
-            if(!locker.able){
-                alert("사용불가능한 사물함입니다!");
+            if(locker.user){
+                alert("이미 배정된 사물함입니다!");
                 return;
             }
             //선택되지 않은 사물함
             else{
-            const isConfirmed = window.confirm(`사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
-            if (isConfirmed) {
-                const user = auth().getCurrentUser();
-                const newLockerData = {
-                    user: {
-                        id: user.id,
-                        name: user.name,
-                        phone: user.phone
-                    },
-                    ...locker
+                startLoading();
+                let isConfirmed;
+                if (user.locker) {
+                    isConfirmed = window.confirm(`이미 배정받은 사물함이 있습니다!\n사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
+                } else {
+                    isConfirmed = window.confirm(`사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
                 }
-                LockerDB().setLockerData(newLockerData, () => {
-                    const newUserData = {
-                        locker: {
-                            area: locker.area,
-                            number: locker.number
-                        },
-                        ...user,
+                if (!isConfirmed) { return; }
+
+                LockerDB().initLockerData(user.locker, () => {
+                    const newLockerData = {
+                        ...locker,
+                        user: {
+                            id: user.id,
+                            name: user.name,
+                            phone: user.phone
+                        }
                     }
-                    UserDB().setUserData(newUserData, () => {
-                        alert("신청이 완료되었습니다!");
-                        newUserData.id = user.id;
-                        auth().setUserData(newUserData);
+                    LockerDB().setLockerData(newLockerData, () => {
+                        const newUserData = {
+                            ...user,
+                            locker: {
+                                area: locker.area,
+                                number: locker.number
+                            },
+                        }
+                        UserDB().setUserData(newUserData, () => {
+                            setTimeout(() => {
+                                alert("신청이 완료되었습니다!");
+                                newUserData.id = user.id;
+                                auth().setUserData(newUserData);
+                                stopLoading();
+                            }, 1000);
+                        })
                     })
                 })
-            }
-            return;
+                
+                return;
             }
             
-        }      
-        
-         //관리자일 경우 정보열람
-        if(!visible){
-            handleOpenInfoModal();
-            setcurLocker(locker);
-        }            
+        } else {
+            
+            //관리자일 경우 정보열람
+            if(!visible){
+                handleOpenInfoModal();
+                setcurLocker(locker);
+            }       
+        }     
     }; 
 
     //선택된 area에 맞게 col 개수 리턴 (default area = A)
@@ -91,7 +101,7 @@ const LockerContainer = ({ lockers }) => {
                     <Locker key={locker.number} data={locker} handler={() => openInfoHandler(locker)} /> )             
                 })                
             }
-            <Lockerinfo isOpen={visible} close={handleCloseInfoModal}  data={curLocker}/>
+            <Lockerinfo isOpen={visible} close={handleCloseInfoModal} data={curLocker}/>
         </div>
     );
 }

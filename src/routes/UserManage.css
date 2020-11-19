@@ -10,6 +10,32 @@
     z-index: 2;
 }
 
+
+.manage-container{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    flex:1;
+}
+.title-manege{
+    width: 100%;
+    height: 25%;
+    background-color: #1D4E89;
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+}
+.titletxt-manege{
+    width: 100%;
+    height: 40px;
+    font-size: 30px;
+    color: whitesmoke;
+    text-align: center;
+    font-weight: bold;
+}
 .content-manage {
     width: 100%;
     height: 100vh;
@@ -20,16 +46,35 @@
     flex-direction: row;
 }
 
-.list-container {
-    /* display: flex;
-    flex-direction: column; */
+.content-container {
     margin-left: 10px;
     margin-right: 10px;
     padding-left: 3px;
     padding-right: 3px;
-    width: 250px;
+    width: 600px;
+    height: 550px;
+}
+.list-title{
+    width: 100%;
+    height: 40px;
+    font-size: 30px;
+    color: #1D4E89;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+
+.list-container {
+    /* display: flex;
+    flex-direction: column; */
+    padding-left: 3px;
+    padding-right: 3px;
+    width: 100%;
     height: 500px;
-    border: 1px solid black;
+    border: 3px solid grey;
+    border-radius: 8px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -57,6 +102,20 @@
     letter-spacing: 0.8px;
 }
 
+.idtext{
+    width: 150px;
+    font-weight: bold;
+}
+
+.nametext{
+    width: 60px;
+    color: slategray;
+}
+.phtext{
+    width: 150px;
+    color: slategray;
+}
+
 .btn {
     width: 100px;
     height: 40px;
@@ -68,7 +127,7 @@
     color: white;
     line-height: 1px;
     border-style: none;
-    border-radius: 8px;
+    border-radius: 20px;
 }
 #register {
     background-color: steelblue;

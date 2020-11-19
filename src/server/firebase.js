@@ -71,7 +71,13 @@ const UserDB = () => {
       .then(onCompleted)
       .catch((err) => {
         console.log(`Error setting user/${userID} document`, err);
-      })
+      }, { merge: true })
+  }
+  // 유저 데이터 초기화하기(락커만 없애기)
+  const initUserData = (userID, onCompleted = () => console.log(`Data[${userID}] init`)) => {
+    db.collection('user').doc(userID).update({
+      locker: firebase.firestore.FieldValue.delete()
+    }).then(onCompleted);
   }
 
   // 유저 데이터 삭제하기
@@ -87,7 +93,7 @@ const UserDB = () => {
   }
   
 
-  return { getUserData, setUserData, removeUserData }
+  return { getUserData, setUserData, initUserData, removeUserData }
 }
 
 
@@ -229,18 +235,35 @@ const LockerDB = () => {
     db.collection(`area/${area}/locker`).where('number', '==', lockerData.number).get()
       .then((snapshot) => {
         if (snapshot.docs.length > 0) {
-          snapshot.docs[0].ref.set(lockerData, {merge: true}).then(onCompleted)
+          if (lockerData.user && snapshot.docs[0].data().locker) {
+            alert("이미 배정된 사물함입니다!");
+          } else {
+            snapshot.docs[0].ref.set(lockerData, {merge: true}).then(onCompleted);
+          }
         }
       })
       .catch((err) => {
         console.log(`Error adding area/${area}/locker/${lockerData.number} document`, err);
       })
   }
+  // 사물함 데이터 초기화하기(사용자만 없애기)
+  const initLockerData = (lockerData, onCompleted = () => console.log(`Data[${lockerData.number}] init`)) => {
+    const area = lockerData.area
+    delete lockerData.area
+    db.collection(`area/${area}/locker`).where('number', '==', lockerData.number).get()
+      .then((snapshot) => {
+        if(snapshot.docs.length > 0) {
+          snapshot.docs[0].ref.update({
+            user: firebase.firestore.FieldValue.delete()
+          }).then(onCompleted);
+        }
+      })
+  }
 
   let lockerDataListener = undefined;
   // 사물함 데이터 리스너 등록하기
   const addLockerDataListener = (area, onChanged = (change) => console.log(change.doc.data())) => {
-    if (!lockerDataListener) {
+    if (lockerDataListener) {
       console.log('Listener already added!');
       return;
     }
@@ -265,7 +288,7 @@ const LockerDB = () => {
     console.log('Listener removed!')
   }
 
-  return { getLockerData, addLockerData, setLockerData, addLockerDataListener, removeLockerDataListener }
+  return { getLockerData, addLockerData, setLockerData, initLockerData, addLockerDataListener, removeLockerDataListener }
 }
 
 export default db;

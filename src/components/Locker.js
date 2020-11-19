@@ -32,7 +32,7 @@ Locker.propTypes = {
         area: Proptypes.string.isRequired,
         number: Proptypes.number.isRequired,
         able: Proptypes.bool.isRequired,
-        user: Proptypes.string
+        user: Proptypes.object
     })
 };
 
