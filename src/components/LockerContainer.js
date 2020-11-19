@@ -15,7 +15,7 @@ const LockerContainer = ({ area, col }) => {
     }, [])
 
     const [ visible, setVisible] = useState(false);
-    const [ curLocker, setcurLocker] = useState([]);
+    const [ curLocker, setcurLocker] = useState({});
 
     const handleOpenInfoModal = () =>{
         setVisible(true);
@@ -31,8 +31,8 @@ const LockerContainer = ({ area, col }) => {
     }
 
     const openInfoHandler = (locker) => {        
-        //사용자일경우 신청
-        if(isAdmin()){
+        //사용자일경우 신청 (가능한 경우)
+        if(isAdmin() && locker.able){
             alert("신청하시겠습니까?");
             return;
         }       
