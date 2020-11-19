@@ -34,7 +34,7 @@ function App() {
 		<HashRouter ref={(r) => { router = r; }}>
 			<Route path="/" exact={true} component={Login}/>
 			<Route path="/main" exact={true} render={(props)=> <Main {...props} user={user} />} />
-			<Route path="/main/mypage" component={MyPage} />
+			<Route path="/main/mypage" render={(props)=> <MyPage {...props} user={user}/>} />
 			<Route path="/register" component={Register} />
 		</HashRouter>
 	);
