@@ -86,12 +86,7 @@ class Login extends React.Component {
                     className="SignupBtn" 
                     onClick={this.handleOpenModal}>
                       Signup
-                  </button>      
-                  <button 
-                    className="loginBtn" 
-                    onClick={() => this.navigate('register')}>
-                      REGISTER
-                  </button>              
+                  </button>           
                 </header>
                 <Signup isOpen={this.state.showModal} close={this.handleCloseModal} />
             </div>    

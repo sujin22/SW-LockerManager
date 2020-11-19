@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { RegisterDB, UserDB } from '../server/firebase.js';
-import logo from '../sw_logo.png';
-import './Login.css';
+import './UserManage.css';
+import Sidebar from './../components/Sidebar';
+import auth from './../server/auth';
 
-const UserManage = () => {
+const UserManage = ({user}) => {
+  const [data, setData] = useState({
+    userList: [],
+    registerList: []
+  })
   const [userList, setUserList] = useState([]);
   const [registerList, setRegisterList] = useState([]);
 
@@ -16,73 +21,99 @@ const UserManage = () => {
     });
   }, [])
 
+  useEffect(() => {
+    setData({...data, userList});
+  }, [userList])
+  useEffect(() => {
+    setData({...data, registerList});
+  }, [registerList])
+
   const renderUserList = () => {
     return (
-      userList.map((data) => (
-          <button
-            key={data.id}
-            id={data.id}
-            className="loginBtn" 
-            onClick={unregister}>
-              {data.id} 가입 확인
-          </button>
-      ))
+      <ul className="list-group">
+        {data.userList.map((data) => (
+          <li>
+            <span>{data.id}</span>
+            <button
+              key={data.id}
+              id="unregister"
+              value={data.id}
+              className="btn" 
+              onClick={unregister}> 
+              가입 취소
+            </button>
+          </li>
+        ))}
+      </ul>
     )
   }
   const renderRegisterList = () => {
     return (
-      registerList.map((data) => (
-          <button
-            key={data.id}
-            id={data.id}
-            className="loginBtn" 
-            onClick={register}>
-              {data.id} 가입 확인
-          </button>
-      ))
+      <ul className="list-group">
+        {data.registerList.map((data) => (
+          <li>
+            <span>{data.id}</span>
+            <button
+              key={data.id}
+              id="register"
+              value={data.id}
+              className="btn" 
+              onClick={register}> 
+              가입 승인
+            </button>
+          </li>
+        ))}
+      </ul>
     )
   }
 
   const unregister = (e) => {
-    const { id } = e.target;
+    const { value } = e.target;
     const newList = userList;
-    const idx = newList.findIndex((item) => item.id === id);
+    const idx = newList.findIndex((item) => item.id === value);
     const data = newList.splice(idx, 1);
-    delete data[0].datetime;
     UserDB().removeUserData(data[0].id, () => {
-      // data[0], () => {
-      //   alert(id+"의 가입이 취소되었습니다!");
-      //   RegisterDB().removeRegisterData(id, () => {
-      //     setRegisterList(JSON.parse(JSON.stringify(userList)));
-      //   })
-      // }
+      alert(value+"의 가입이 취소되었습니다!");
+      RegisterDB().addRegisterData(data[0], () => {
+        setUserList(JSON.parse(JSON.stringify(newList)));
+        const newRegisterList = registerList;
+        newRegisterList.push(data[0]);
+        setRegisterList(newRegisterList);
+      })
     })
   }
 
   const register = (e) => {
-    const { id } = e.target;
+    const { value } = e.target;
     const newList = registerList;
-    const idx = newList.registerList((item) => item.id === id);
+    const idx = newList.findIndex((item) => item.id === value);
     const data = newList.splice(idx, 1);
     delete data[0].datetime;
     UserDB().setUserData(data[0], () => {
-      alert(id+"의 가입이 완료되었습니다!");
-      RegisterDB().removeRegisterData(id, () => {
+      alert(value+"의 가입이 완료되었습니다!");
+      RegisterDB().removeRegisterData(value, () => {
         setRegisterList(JSON.parse(JSON.stringify(newList)));
+        const newUserList = userList;
+        data[0].id = value;
+        newUserList.push(data[0]);
+        setUserList(newUserList);
       })
     })
   }
 
   return (
-    <div className="Login">
-        <header className="Login-header">
-            <img src={logo} className="Login-logo" alt="logo" />
-            <p>
-            세종대학교 소프트웨어학과 사물함 배정 페이지
-            </p>
-            { renderUserList() }
-            { renderRegisterList() }
-        </header>
+    <div className="Manage">
+      <div className="sidebar">
+        { user && <Sidebar admin={auth().isAdmin()} user={user}/> }
+      </div>
+      <div className="content-manage">
+        <div className="list-container">
+          { renderUserList() }
+        </div>
+        <div className="list-container">
+          { renderRegisterList() }
+        </div>
+      </div>
     </div>
   )
 }
