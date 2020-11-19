@@ -1,0 +1,41 @@
+.wrapuser{    
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;  
+
+  .infoText {
+    width: fit-content;
+    height: 10px;
+    padding: 6px;
+    text-align: left;
+
+  }
+  .idText {
+      border-radius: 2px;
+      height: 40px;
+      border: 1px solid #e5e5e5;
+      padding: 9px 12px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    input::placeholder {
+      color: #999999;
+    }  
+}
+
+.wraplabel{
+    
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;  
+  .ableCb{
+  padding-left: 8px;
+  font-size: 13px;   
+  }   
+}
+
+
+
+
