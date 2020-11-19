@@ -7,20 +7,18 @@ import icon_collapsed from '../icon_collapsed.png';
 import icon_logout from '../icon_logout.png';
 import auth from './../server/auth';
 
+// props -> admin(bool), user(Object)
 class Sidebar extends Component {
     constructor() {
         super();
         this.state ={
-            user: {},
             isSidebarExpanded: false
         };
         this.auth = auth();
     }
 
     componentDidMount = () => {
-        if (this.auth.isLogin()) {
-            this.setState({user: this.auth.getCurrentUser()})
-        }
+        
     }
     
 
@@ -75,7 +73,8 @@ class Sidebar extends Component {
     );
 
     render(){
-        const { user, isSidebarExpanded } = this.state;
+        const { admin, user } = this.props;
+        const { isSidebarExpanded } = this.state;
         return(
             <div>
                 {isSidebarExpanded && this.sidebarExpanded(user)}

@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './MyPage.css'
 import Sidebar from './Sidebar';
 import img_mypage from '../img_mypage.jpg'
+import auth from './../server/auth';
 
 function MyPage(){
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        if (!auth().isLogin()) {
+            alert("로그인이 필요합니다!");
+            this.props.history.goBack();
+        } else {
+            setUser(auth().getCurrentUser);
+        }
+    }, [])
+
     return (
         <div className="Mypage">
             <div className="sidebar">
-                    <Sidebar />
+                { Object.keys(user).length > 0  && <Sidebar admin={auth().isAdmin()} user={user} /> }
             </div>
             
             <div className="mypage_container">

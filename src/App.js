@@ -22,10 +22,10 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		if (user) {
-			navigate('main');
-		} else {
+		if (!user) {
 			navigate();
+		} else {
+			navigate('main');
 		}
 	}, [user])
 

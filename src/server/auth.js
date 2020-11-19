@@ -21,6 +21,11 @@ const auth = () => {
   const getCurrentUser = () => {
     return Object.keys(userSessionData).length === 0 ? undefined : userSessionData;
   }
+  // 유저 데이터 설정
+  const setUserData = (obj) => { 
+    setUserSessionData(obj);
+    listener.notify();
+  } 
 
   const isAdmin = () => {
     const user = getCurrentUser();
@@ -48,16 +53,14 @@ const auth = () => {
       if (data.password !== password) { alert("비밀번호가 일치하지 않습니다!"); return false; }
       // delete data.password;
       sessionStorage.setItem('SWLM_USER_DATA', JSON.stringify(data));
-      setUserSessionData(data);
-      listener.notify();
+      setUserData(data);
       return true;
     }
   }
   // 로그아웃
   const logout = () => {
     sessionStorage.removeItem('SWLM_USER_DATA');
-    setUserSessionData({});
-    listener.notify();
+    setUserData({});
   }
 
   // 리스너 등록 (실제로는 콜백 함수 등록)
@@ -69,7 +72,7 @@ const auth = () => {
   // 리스너 삭제 (실제로는 콜백 함수 삭제)
   const removeListener = () => { listener.notify = initial_notify; }
   
-  return { getCurrentUser, isAdmin, isLogin, login, logout, addListener, removeListener }
+  return { getCurrentUser, setUserData, isAdmin, isLogin, login, logout, addListener, removeListener }
 }
 
 export default auth;
