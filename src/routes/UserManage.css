@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Noto+Serif+KR&family=PT+Mono&display=swap');
+  
+/* 
+font-family: 'Noto Sans KR', sans-serif;
+font-family: 'Noto Serif KR', serif;
+font-family: 'PT Mono', monospace;
+*/
+
 .Manage {
     margin-top: 0px;
     display: flex;
@@ -18,23 +26,46 @@
     align-items: center;
     flex:1;
 }
-.title-manege{
+.title-manage{
     width: 100%;
     height: 25%;
-    background-color: #1D4E89;
+    /* background-color: #1D4E89; */
     font-size: 30px;
-    display: flex;
-    flex-direction: row;
-    justify-content:center;
-    align-items: center;
+
+    display: table;
+
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* justify-content:center; */
+    /* align-items: center; */
 }
-.titletxt-manege{
+.list-title-manage{
+    width: 100%;
+    height: 20%;
+    /* background-color: #1D4E89; */
+    font-size: 30px;
+
+    display: table;
+
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* justify-content:center; */
+    /* align-items: center; */
+}
+.titletxt-manage{
     width: 100%;
     height: 40px;
-    font-size: 30px;
-    color: whitesmoke;
+
+    font-weight: 500;
+    font-size: 48px;
+    font-family: 'Noto Serif KR', serif;
+    /* color: whitesmoke; */
+    color: black;
+
     text-align: center;
-    font-weight: bold;
+    display: table-cell;
+    vertical-align: middle;
+    /* font-weight: bold; */
 }
 .content-manage {
     width: 100%;
@@ -57,12 +88,18 @@
 .list-title{
     width: 100%;
     height: 40px;
+    
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 30px;
     color: #1D4E89;
-    font-weight: bold;
+    font-weight: 500;
+    
     text-align: center;
     margin-top: 5px;
     margin-bottom: 15px;
+
+    display: table-cell;
+    vertical-align: middle;
 }
 
 
@@ -73,7 +110,7 @@
     padding-right: 3px;
     width: 100%;
     height: 500px;
-    border: 3px solid grey;
+    border: 1px solid grey;
     border-radius: 8px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -97,23 +134,26 @@
 
 .list-group li span {
     margin-left: 10px;
-    font-weight: 500;
+    font-family: 'Noto Sans KR', sans-serif;
+    /* font-weight: 300; */
     font-size: 18px;
     letter-spacing: 0.8px;
 }
 
 .idtext{
     width: 150px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .nametext{
     width: 60px;
     color: slategray;
+    font-weight: 300;
 }
 .phtext{
     width: 150px;
     color: slategray;
+    font-weight: 300;
 }
 
 .btn {
@@ -130,8 +170,8 @@
     border-radius: 20px;
 }
 #register {
-    background-color: steelblue;
+    background-color: #1D4E89;
 }
 #unregister {
-    background-color: tomato;
+    background-color: #A6A6A6;
 }

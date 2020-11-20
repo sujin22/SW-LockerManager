@@ -11,13 +11,17 @@ font-family: 'PT Mono', monospace;
   }
   
   .Login-logo {
-    height: 40vmin;
+    /* height: 40vmin; */
+    width: auto; height: auto;
+    max-width: 10vw;
+    max-height: 10vw;
     pointer-events: none;
   }
   
   @media (prefers-reduced-motion: no-preference) {
     .Login-logo {
       animation: Login-logo-spin infinite 20s linear;
+      
     }
   }
   
@@ -28,12 +32,14 @@ font-family: 'PT Mono', monospace;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
+    font-size: calc(18px + 2vmin);
     color: white;
     font-family: 'PT Mono', monospace;
     text-align: center;
   }
-
+  .Login-header span{
+    margin-top: 5vh;
+  }
   .loginId {
     margin-top: 30px;
     border-radius: 2px;
@@ -74,6 +80,11 @@ font-family: 'PT Mono', monospace;
     margin-bottom: 12px;
     border-style: none;
     border-radius: 25px;
+  }
+
+  .loginBtn:hover{
+    background-color: #D9E5FF;
+    color: black;
   }
 
   .SignupBtn {

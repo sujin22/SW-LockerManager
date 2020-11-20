@@ -110,24 +110,33 @@ const UserManage = ({user}) => {
       <div className="sidebar">
         { user && <Sidebar admin={auth().isAdmin()} user={user}/> }
       </div>
+
       <div className="manage-container">
-        <div className="title-manege"> 
-        <div className="titletxt-manege">회원 관리 페이지</div>
+        <div className="title-manage"> 
+          <div className="titletxt-manage">회원 관리 페이지</div>
         </div>
+
         <div className="content-manage">
+
           <div className="content-container">
-            <div className="list-title">회원 목록</div>
+            <div className="list-title-manage"> 
+              <div className="list-title">회원 목록</div>
+            </div> 
             <div className="list-container">
             { renderUserList() }
             </div>          
           </div>
+
           <div className="content-container">
-          <div className="list-title">신청 목록</div>
+          <div className="list-title-manage"> 
+              <div className="list-title">신청 목록</div>
+            </div> 
             <div className="list-container">
               { renderRegisterList() }
             </div>
           </div>
         </div>
+
       </div>
       
     </div>

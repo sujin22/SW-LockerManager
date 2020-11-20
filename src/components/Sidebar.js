@@ -64,7 +64,7 @@ class Sidebar extends Component {
                 <div className="nav">
                     <Link to="/main">사물함 배정받기</Link>
                     <Link to="/main/mypage" params={{ user: {user}}}>내 사물함 정보</Link>
-                    <Link to="/register">회원가입신청관리</Link>
+                    <Link to="/register">회원 관리</Link>
                 </div>
 
             </div>
