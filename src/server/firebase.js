@@ -259,6 +259,20 @@ const LockerDB = () => {
         }
       })
   }
+  // 사물함 비활성화 하기 (사용 불가능)
+  const enableLockerData = (lockerData, able, onCompleted = () => console.log(`Data[${lockerData.number}] updated`)) => {
+    const area = lockerData.area
+    delete lockerData.area
+    db.collection(`area/${area}/locker`).where('number', '==', lockerData.number).get()
+      .then((snapshot) => {
+        if(snapshot.docs.length > 0) {
+          snapshot.docs[0].ref.update({
+            able,
+            user: firebase.firestore.FieldValue.delete()
+          }).then(onCompleted);
+        }
+      })
+  }
 
   let lockerDataListener = undefined;
   // 사물함 데이터 리스너 등록하기
@@ -288,7 +302,7 @@ const LockerDB = () => {
     console.log('Listener removed!')
   }
 
-  return { getLockerData, addLockerData, setLockerData, initLockerData, addLockerDataListener, removeLockerDataListener }
+  return { getLockerData, addLockerData, setLockerData, initLockerData, enableLockerData, addLockerDataListener, removeLockerDataListener }
 }
 
 export default db;

@@ -55,9 +55,11 @@ const Lockerinfo = ({ isOpen, close, data }) => {
         setEdit(true);
     }
 
-    const checkboxHandelr =(e)=>{
-      console.log(e.target.checked);
+  const checkboxHandler =(e)=>{
+    const enable = e.target.checked;
+    LockerDB().enableLockerData({area, number}, enable, () => {
       setnewAble(e.target.checked);
+    })
   }
 
   const infoEditNumHandler = (e) => {
@@ -116,7 +118,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
                         value={newAble}
                         checked={newAble} 
                         label="사용 가능 유무"
-                        onChange={checkboxHandelr}                       
+                        onChange={checkboxHandler}                       
                     ></input>
                     <text  className="ableCb">  사물함 사용 가능</text>
                </div>     
