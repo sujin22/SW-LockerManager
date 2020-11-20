@@ -108,7 +108,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
                 <p>이름 : {user?user.name:""}</p>
                 <p>연락처 : {user?user.phone:""}</p>
                 <div className="twobutton-wrap">
-                  <button onClick={editHandler}>사물함 정보 수정</button> 
+                {!user && <button onClick={editHandler}>사물함 정보 수정</button> } 
                   { user && <button onClick={deleteHandler}>사용자 삭제</button> }
                 </div>              
               </React.Fragment>
