@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Noto+Serif+KR&family=PT+Mono&display=swap');
+  
+/* 
+font-family: 'Noto Sans KR', sans-serif;
+font-family: 'Noto Serif KR', serif;
+font-family: 'PT Mono', monospace;
+*/
+
 .sidebar {
     width: 60px;
     /* padding: 10px 1px 0; */
@@ -34,6 +42,8 @@
 .user_info{
   margin-bottom: 15px;
   text-align: center;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: lighter;
 }
 
 .buttons{
@@ -46,20 +56,21 @@
   height: 40px;
   vertical-align: middle;
 
-  border: 1px solid skyblue;
+  border: 1px solid #D9E5FF;;
   background-color: white;
   color: black;
 
   font-size: 15px;
   font-weight: bold;
+  font-family: 'Noto Sans KR', sans-serif;
 
   border-radius: 10px;
   
 }
 
 .btn_logout:hover{
-  background-color: skyblue;
-  color: white; 
+  background-color: #D9E5FF;
+  /* color: white;  */
 }
 
 .icon_logout{
@@ -81,6 +92,8 @@
 
   color: white;
   /* font-size: 12px; */
+  font-family: 'Noto Sans KR', sans-serif;
+
   text-align: center;
 
   display: block;
@@ -90,5 +103,6 @@
 }
 
 .nav a:hover{
-  background-color: skyblue;
+  background-color: #D9E5FF;
+  color: black; 
 }

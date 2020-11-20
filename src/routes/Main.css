@@ -49,14 +49,15 @@ font-family: 'PT Mono', monospace;
   .assignment_title{
     font-weight: 500;
     font-size: 48px;
-    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: 'Noto Sans KR', sans-serif; */
+    font-family: 'Noto Serif KR', serif;
   }
 
   .minimap_title, .locker_title{
     color: #1D4E89;
     font-size: 18px;
 
-    font-weight: 300;
+    font-weight: 500;
     font-family: 'Noto Sans KR', sans-serif;
   }
 
@@ -67,10 +68,11 @@ font-family: 'PT Mono', monospace;
   .locker_guideline{
     /* padding: 10px; */
     display: inline;
+    
   }
   .locker_guideline td{
 
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
   }
 
   .up-on-scroll{
@@ -119,12 +121,14 @@ font-family: 'PT Mono', monospace;
 
     background-color: #282c34;
     color: white;
+    
     font-size: 18px;
-
+    font-family: 'Noto Serif KR', serif;
+    
     border-radius: 5px;
-    border: 0pxre;
+    border: 0px;
   }
-
+  
   .intro_btn:hover{
     background-color: #D9E5FF;
     color: black;

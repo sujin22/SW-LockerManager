@@ -58,9 +58,10 @@ class Login extends React.Component {
             <div className="Login">
                 <header className="Login-header">
                     <img src={logo} className="Login-logo" alt="logo" />
-                    <p>
-                    세종대학교 소프트웨어학과 사물함 배정 사이트
-                    </p>
+                    <span>
+                    Sejong Software<br/>
+                    Locker Service;
+                    </span>
                   <input
                     name="id"
                     className="loginId"

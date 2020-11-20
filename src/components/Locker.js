@@ -9,7 +9,7 @@ const Locker = ({ data , handler}) => {
     //available
     if(user===undefined){
         return(
-            <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'black', backgroundColor: able? "white" : "gray",transition: "background-color 1s", border:"1px solid gray"}}
+            <div className="locker_item" style={{float: 'left', width: 50, height: 50, margin: 2, color: 'black', backgroundColor: able? "white" : "#D5D5D5",transition: "background-color 1s", border:"1px solid gray"}}
             onClick={handler}>
               {area}<br />{number}
             </div>
@@ -19,7 +19,7 @@ const Locker = ({ data , handler}) => {
     //occupied(blue) / broken(gray)
     else{
         return(
-            <div style={{float: 'left', width: 50, height: 50, margin: 2, color: 'white', backgroundColor: able? "blue" : "gray", transition: "background-color 1s", border:"1px solid gray"}}
+            <div className="locker_item" style={{float: 'left', width: 50, height: 50, margin: 2, color: 'black', backgroundColor: able? "#D9E5FF" : "#D5D5D5", transition: "background-color 1s", border:"1px solid gray"}}
             onClick={handler}>
               {area}<br />{number}
             </div>

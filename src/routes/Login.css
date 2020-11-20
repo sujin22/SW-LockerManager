@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Noto+Serif+KR&family=PT+Mono&display=swap');
+  
+/* 
+font-family: 'Noto Sans KR', sans-serif;
+font-family: 'Noto Serif KR', serif;
+font-family: 'PT Mono', monospace;
+*/
+
 .Login {
     text-align: center;
   }
@@ -22,6 +30,8 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+    font-family: 'PT Mono', monospace;
+    text-align: center;
   }
 
   .loginId {
@@ -36,6 +46,8 @@
   }
   input::placeholder {
     color: #999999;
+    font-family: 'Noto Sans KR', sans-serif;
+
   }
   .loginPw {
     margin-top: 15px;
@@ -52,6 +64,7 @@
     width: 200px;
     height: 40px;
     font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
     padding: 13px 30px;
     cursor: pointer;
     background-color: black;
@@ -67,6 +80,10 @@
     width: 200px;
     height: 40px;
     font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-decoration: underline;
+    text-underline-position: under;
+
     padding: 13px 30px;
     cursor: pointer;
     background-color: rgba(0,0,0,0.0);

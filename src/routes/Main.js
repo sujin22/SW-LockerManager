@@ -197,9 +197,9 @@ class Main extends Component{
                                 </p>
                                 <div className="locker_guideline ">
                                     <tr className="up-on-scroll">
-                                        <td style={{width:15,backgroundColor:'blue'}}></td>
+                                        <td style={{width:15,backgroundColor:'#D9E5FF'}}></td>
                                         <td style={{fontSize:15}}>: 사용 중 &nbsp;</td>
-                                        <td style={{width:15,backgroundColor:'gray'}}></td>
+                                        <td style={{width:15,backgroundColor:'#D5D5D5'}}></td>
                                         <td style={{fontSize:15}}>: 고장  </td>
                                     </tr>
                                     <tr>&nbsp;</tr>
