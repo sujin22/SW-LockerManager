@@ -96,7 +96,9 @@ const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
             style={{width:52*(locker_col+1)}}>
             {
                 lockers.map((locker) => {
-                
+                if(locker.user !== undefined){
+                    console.log("여기는 container "+ locker.user.id);
+                }
                 return (
                     <Locker key={locker.number} data={locker} handler={() => openInfoHandler(locker)} /> )             
                 })                
