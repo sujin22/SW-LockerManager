@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Proptypes from 'prop-types';
 import './Locker.css';
-import { LockerDB } from '../server/firebase';
 import auth from '../server/auth';
 
 const Locker = ({ data , handler}) => {

@@ -65,7 +65,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
   }
   const sumitHandler =()=>{
     //새로운 정보 전송
-    if(edit && able!=newAble){
+    if(edit && able!==newAble){
       LockerDB().enableLockerData({area, number}, newAble, () => {        
       })
     }    
