@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/SW-LockerManager/static/css/main.9495dc11.chunk.css",
-    "main.js": "/SW-LockerManager/static/js/main.90a8f22b.chunk.js",
-    "main.js.map": "/SW-LockerManager/static/js/main.90a8f22b.chunk.js.map",
+    "main.js": "/SW-LockerManager/static/js/main.901acc14.chunk.js",
+    "main.js.map": "/SW-LockerManager/static/js/main.901acc14.chunk.js.map",
     "runtime-main.js": "/SW-LockerManager/static/js/runtime-main.fcd488d6.js",
     "runtime-main.js.map": "/SW-LockerManager/static/js/runtime-main.fcd488d6.js.map",
     "static/js/2.57eda8a9.chunk.js": "/SW-LockerManager/static/js/2.57eda8a9.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.fcd488d6.js",
     "static/js/2.57eda8a9.chunk.js",
     "static/css/main.9495dc11.chunk.css",
-    "static/js/main.90a8f22b.chunk.js"
+    "static/js/main.901acc14.chunk.js"
   ]
 }
