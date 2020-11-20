@@ -2,9 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Component} from 'react';
 import './Sidebar.css'
-import icon_expanded from '../icon_expanded.png';
-import icon_collapsed from '../icon_collapsed.png';
-import icon_logout from '../icon_logout.png';
+import icon_expanded from '../assets/imgs/icon_expanded.png';
+import icon_collapsed from '../assets/imgs/icon_collapsed.png';
+import icon_logout from '../assets/imgs/icon_logout.png';
 import auth from './../server/auth';
 
 // props -> admin(bool), user(Object)
