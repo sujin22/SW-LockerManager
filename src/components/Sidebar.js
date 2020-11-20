@@ -37,7 +37,7 @@ class Sidebar extends Component {
         </div>
     );
     
-    sidebarExpanded = (user) => (
+    sidebarExpanded = (admin, user) => (
         <div className="sidebar expanded"
         onMouseLeave={() => this.setState({isSidebarExpanded: false})}>
             <span
@@ -64,7 +64,7 @@ class Sidebar extends Component {
                 <div className="nav">
                     <Link to="/main">사물함 배정받기</Link>
                     <Link to="/main/mypage" params={{ user: {user}}}>내 사물함 정보</Link>
-                    <Link to="/register">회원 관리</Link>
+                    <Link to="/register" style={{display:admin?'block':'none'}}>회원 관리</Link>
                 </div>
 
             </div>
@@ -77,7 +77,7 @@ class Sidebar extends Component {
         const { isSidebarExpanded } = this.state;
         return(
             <div>
-                {isSidebarExpanded && this.sidebarExpanded(user)}
+                {isSidebarExpanded && this.sidebarExpanded(admin, user)}
                 {isSidebarExpanded || this.sidebarCollapsed()}
             </div>
         );
