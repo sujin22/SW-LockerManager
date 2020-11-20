@@ -34,12 +34,38 @@ const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
                 let isConfirmed;
                 if (user.locker) {
                     isConfirmed = window.confirm(`이미 배정받은 사물함이 있습니다!\n사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
+                    if (!isConfirmed) { startLoading(); return; }
+
+                    LockerDB().initLockerData(user.locker, () => {
+                        const newLockerData = {
+                            ...locker,
+                            user: {
+                                id: user.id,
+                                name: user.name,
+                                phone: user.phone
+                            }
+                        }
+                        LockerDB().setLockerData(newLockerData, () => {
+                            const newUserData = {
+                                ...user,
+                                locker: {
+                                    area: locker.area,
+                                    number: locker.number
+                                },
+                            }
+                            UserDB().setUserData(newUserData, () => {
+                                setTimeout(() => {
+                                    alert("신청이 완료되었습니다!");
+                                    newUserData.id = user.id;
+                                    auth().setUserData(newUserData);
+                                    stopLoading();
+                                }, 1000);
+                            })
+                        })
+                    })
                 } else {
                     isConfirmed = window.confirm(`사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
-                }
-                if (!isConfirmed) { return; }
-
-                LockerDB().initLockerData(user.locker, () => {
+                    if (!isConfirmed) { startLoading(); return; }
                     const newLockerData = {
                         ...locker,
                         user: {
@@ -48,7 +74,7 @@ const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
                             phone: user.phone
                         }
                     }
-                    LockerDB().setLockerData(newLockerData, () => {
+                    LockerDB().setLockerData(newLockerData, () => {                       
                         const newUserData = {
                             ...user,
                             locker: {
@@ -65,10 +91,8 @@ const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
                             }, 1000);
                         })
                     })
-                })
-                
-                return;
-            }
+                }                
+                return;            }
             
         } else {
             
