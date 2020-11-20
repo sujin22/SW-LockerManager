@@ -1,7 +1,7 @@
 .loader-screen {
     position: absolute;
     width: 100vw;
-    height: calc(200vh + 28px);
+    height: calc(300vh + 28px);
     background-color: black;
     opacity: 0.6;
     z-index: 5;
