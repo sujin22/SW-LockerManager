@@ -55,11 +55,8 @@ const Lockerinfo = ({ isOpen, close, data }) => {
         setEdit(true);
     }
 
-  const checkboxHandler =(e)=>{
-    const enable = e.target.checked;
-    LockerDB().enableLockerData({area, number}, enable, () => {
-      setnewAble(e.target.checked);
-    })
+  const checkboxHandler =(e)=>{  
+      setnewAble(e.target.checked);   
   }
 
   const infoEditNumHandler = (e) => {
@@ -67,25 +64,17 @@ const Lockerinfo = ({ isOpen, close, data }) => {
     setnewUserId(newValue);
   }
   const sumitHandler =()=>{
-
     //새로운 정보 전송
     if(edit){
-      //유저 바뀔시 등록 1.유저가 없는데 입력값이 생긴경우 2. 유저값이 있고 바뀐경우
-      if(!user && newUserId){
-        if(newUserId.length>1){
-        }
-      }else if( newUserId ){
-        if(user.id !== newUserId){          
-        }
-      }
-    }
+      LockerDB().enableLockerData({area, number}, newAble, () => {        
+      })
+    }    
     setEdit(false);
     close();
 }
 
   const renderSubmitBtn = () => {
         return (<div><button onClick={sumitHandler}>확인</button></div>);
-
   }
 
   return (
@@ -99,17 +88,7 @@ const Lockerinfo = ({ isOpen, close, data }) => {
           <div className="mContent">
               {edit ?
               <React.Fragment>                               
-                  <div className="wrapuser">
-                  <text  className="infoText"> 현재사용자</text>
-                  <input
-                        name="newUser"
-                        className="idText"
-                        type="text"
-                        placeholder="사용자 학번"
-                        value={newUserId}   
-                        onChange={infoEditNumHandler}                        
-                    />
-                  </div>                
+                                
                <div className = "wraplabel">
                <input
                         name="newAble"
