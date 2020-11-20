@@ -200,7 +200,9 @@ class Main extends Component{
                                         <td style={{width:15,backgroundColor:'#D9E5FF'}}></td>
                                         <td style={{fontSize:15}}>: 사용 중 &nbsp;</td>
                                         <td style={{width:15,backgroundColor:'#D5D5D5'}}></td>
-                                        <td style={{fontSize:15}}>: 고장  </td>
+                                        <td style={{fontSize:15}}>: 고장 &nbsp;</td>
+                                        <td style={{width:15,backgroundColor:'#002266'}}></td>
+                                        <td style={{fontSize:15}}>: 내 사물함  </td>
                                     </tr>
                                     <tr>&nbsp;</tr>
                                 </div>
