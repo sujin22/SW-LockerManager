@@ -34,7 +34,10 @@ const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
                 let isConfirmed;
                 if (user.locker) {
                     isConfirmed = window.confirm(`이미 배정받은 사물함이 있습니다!\n사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
-                    if (!isConfirmed) {  return; }
+                    if (!isConfirmed) {  
+                        stopLoading();
+                        return; 
+                    }
                     startLoading();
                     LockerDB().initLockerData(user.locker, () => {
                         const newLockerData = {
@@ -65,7 +68,10 @@ const LockerContainer = ({ user, lockers, startLoading, stopLoading}) => {
                     })
                 } else {
                     isConfirmed = window.confirm(`사물함 ${locker.area}-${locker.number} 신청하시겠습니까?`);
-                    if (!isConfirmed) {  return; }
+                    if (!isConfirmed) {  
+                        stopLoading();
+                        return; 
+                    }
                     startLoading();
                     const newLockerData = {
                         ...locker,
